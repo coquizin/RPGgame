@@ -98,12 +98,12 @@ class GameScene extends Phaser.Scene {
     this.objectsLayer.setCollisionByProperty({collides : true})
 
     //debug collider
-    // const debugGraphics = this.add.graphics().setAlpha(0.7)
-    // this.waterLayer.renderDebug(debugGraphics, {
-    //   titleColor: null,
-    //   colldingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-    // })
+    const debugGraphics = this.add.graphics().setAlpha(0.7)
+    this.waterLayer.renderDebug(debugGraphics, {
+      titleColor: null,
+      colldingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+    })
 
     // const debugGraphics = this.add.graphics().setAlpha(0.7)
     // this.objectsLayer.renderDebug(debugGraphics, {
