@@ -86,16 +86,66 @@ class GameScene extends Phaser.Scene {
 
   createMap() {
     // create the tile map
-    this.map = this.make.tilemap({key: 'map'})
+    this.map = this.make.tilemap({ key: 'map' })
     // add the tileset image to our map
-    this.tiles = this.map.addTilesetImage('tilesetCerto', 'tilesetCerto',16, 16, 0, 0)
-    //create our background
-    this.backgroundLayer = this.map.createLayer('Ground', this.tiles).setScale(2);
-    this.waterLayer = this.map.createLayer('water', this.tiles).setScale(2);
-    this.objectsLayer = this.map.createLayer('objects', this.tiles).setScale(2);
 
-    this.waterLayer.setCollisionByProperty({collides : true})
-    this.objectsLayer.setCollisionByProperty({collides : true})
+    // this.map.addTilesetImage('chao2');
+    // this.waterTile = this.map.addTilesetImage('agua1');
+    // this.waterLayer = this.map.createLayer('agua', this.waterTile).setScale(2);
+
+    
+    const titles = []
+    titles.push(this.map.addTilesetImage('chao1'));
+    titles.push(this.map.addTilesetImage('chao2'));
+    titles.push(this.map.addTilesetImage('chao3'));
+    titles.push(this.map.addTilesetImage('agua1'));
+    titles.push(this.map.addTilesetImage('agua2'));
+    titles.push(this.map.addTilesetImage('arvore'));
+    titles.push(this.map.addTilesetImage('flores'));
+    titles.push(this.map.addTilesetImage('town'));
+    titles.push(this.map.addTilesetImage('town_2'));
+
+
+    // const tilesBackground = []
+    // tilesBackground.push(this.map.addTilesetImage('chao1'));
+    // tilesBackground.push(this.map.addTilesetImage('chao2'));
+    // tilesBackground.push(this.map.addTilesetImage('chao3'));
+
+    // const tilesWater = []
+    // tilesWater.push(this.map.addTilesetImage('agua1'));
+    // tilesWater.push(this.map.addTilesetImage('agua2'));
+
+    // const titleObject = []
+    // titleObject.push(this.map.addTilesetImage('arvore'));
+    // titleObject.push(this.map.addTilesetImage('flores'));
+    // titleObject.push(this.map.addTilesetImage('town'));
+    // titleObject.push(this.map.addTilesetImage('town_2'));
+
+    // const backgroundLayer = this.map.createDynamicLayer('background', tilesBackground, 0, 0);
+    // const groundLayer = this.map.createDynamicLayer('chao', tilesBackground, 0, 0);
+    // const waterLayer = this.map.createDynamicLayer('agua', tilesWater, 0, 0);
+    // const objectLayer = this.map.createDynamicLayer('objetos', titleObject, 0, 0);
+
+    const backgroundLayer = this.map.createLayer('background', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    const waterLayer = this.map.createLayer('agua', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    const groundLayer = this.map.createLayer('chao', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    const objectLayer = this.map.createLayer('objetos', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+
+    // declare the collisions
+    // platformLayer.setCollisionByProperty({ collides: true });
+
+    // this.tiles = this.ma);.addTilesetImage('tilesetCerto', 'tilesetCerto',16, 16, 0, 0)
+
+
+    
+
+    // this.tiles = this.map.createDynamicLayer(`map`, layers, 0, 0)
+    //create our background
+    // this.backgroundLayer = this.map.createLayer('Ground', this.tiles).setScale(2);
+    // this.objectsLayer = this.map.createLayer('objects', this.tiles).setScale(2);
+
+    // this.waterLayer.setCollisionByProperty({collides : true})
+    // this.objectsLayer.setCollisionByProperty({collides : true})
 
     //debug collider
     // const debugGraphics = this.add.graphics().setAlpha(0.7)
@@ -116,7 +166,7 @@ class GameScene extends Phaser.Scene {
     this.physics.world.bounds.width = this.map.widthInPixels * 2;
     this.physics.world.bounds.height = this.map.heightInPixels * 2;
 
-    // limit the camera to the size of our map
+    // // limit the camera to the size of our map
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
 
   }
