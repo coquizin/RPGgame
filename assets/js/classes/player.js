@@ -14,6 +14,8 @@ class Player extends Phaser.Physics.Arcade.Image {
     this.body.setCollideWorldBounds(true);
     // add the to our existing scene
     this.scene.add.existing(this);
+    // have the caramera following the player
+    this.scene.cameras.main.startFollow(this);
   }
 
   update(cursors) {
