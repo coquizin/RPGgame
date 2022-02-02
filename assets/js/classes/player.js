@@ -9,13 +9,13 @@ class Player extends Phaser.Physics.Arcade.Image {
     // set immable if another object collides with our player
     this.setImmovable(false);
     // scale oyr player
-    this.setScale(1.5);
+    this.setScale(2);
     // colide with world bounds
     this.body.setCollideWorldBounds(true);
     // add the to our existing scene
     this.scene.add.existing(this);
     // have the caramera following the player
-    this.scene.cameras.main.startFollow(this);
+    this.scene.cameras.main.startFollow(this)
   }
 
   update(cursors) {

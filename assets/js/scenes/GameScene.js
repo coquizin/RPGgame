@@ -68,6 +68,8 @@ class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.waterLayer);
     this.physics.add.collider(this.player, this.objectsLayer);
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
+    this.physics.add.collider(this.player, this.objectsLayer);
+    this.physics.add.collider(this.player, this.deepCaveLayer);
   }
 
 
@@ -95,15 +97,17 @@ class GameScene extends Phaser.Scene {
 
     
     const titles = []
-    titles.push(this.map.addTilesetImage('chao1'));
-    titles.push(this.map.addTilesetImage('chao2'));
-    titles.push(this.map.addTilesetImage('chao3'));
-    titles.push(this.map.addTilesetImage('agua1'));
-    titles.push(this.map.addTilesetImage('agua2'));
-    titles.push(this.map.addTilesetImage('arvore'));
-    titles.push(this.map.addTilesetImage('flores'));
-    titles.push(this.map.addTilesetImage('town'));
-    titles.push(this.map.addTilesetImage('town_2'));
+    // titles.push(this.map.addTilesetImage('chao1'));
+    titles.push(this.map.addTilesetImage('tilesets_1'));
+    // titles.push(this.map.addTilesetImage('chao3'));
+    // titles.push(this.map.addTilesetImage('agua1'));
+    // titles.push(this.map.addTilesetImage('agua2'));
+    // titles.push(this.map.addTilesetImage('arvore'));
+    // titles.push(this.map.addTilesetImage('flores'));
+    // titles.push(this.map.addTilesetImage('town'));
+    // titles.push(this.map.addTilesetImage('town_2'));
+    titles.push(this.map.addTilesetImage('cave_1'));
+    titles.push(this.map.addTilesetImage('cave_2'));
 
 
     // const tilesBackground = []
@@ -126,10 +130,15 @@ class GameScene extends Phaser.Scene {
     // const waterLayer = this.map.createDynamicLayer('agua', tilesWater, 0, 0);
     // const objectLayer = this.map.createDynamicLayer('objetos', titleObject, 0, 0);
 
-    const backgroundLayer = this.map.createLayer('background', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    const waterLayer = this.map.createLayer('agua', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    const groundLayer = this.map.createLayer('chao', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    const objectLayer = this.map.createLayer('objetos', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+
+    this.backgroundLayer = this.map.createLayer('background_cave', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    this.deepCaveLayer = this.map.createLayer('deep_cave', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    this.groundLayer = this.map.createLayer('ground_cave', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    this.objectsLayer = this.map.createLayer('objects_cave', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    // const backgroundLayer = this.map.createLayer('background', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    // const waterLayer = this.map.createLayer('agua', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    // const groundLayer = this.map.createLayer('chao', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    // const objectLayer = this.map.createLayer('objetos', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
 
     // declare the collisions
     // platformLayer.setCollisionByProperty({ collides: true });
@@ -147,9 +156,9 @@ class GameScene extends Phaser.Scene {
     // this.waterLayer.setCollisionByProperty({collides : true})
     // this.objectsLayer.setCollisionByProperty({collides : true})
 
-    //debug collider
+    // debug collider
     // const debugGraphics = this.add.graphics().setAlpha(0.7)
-    // this.waterLayer.renderDebug(debugGraphics, {
+    // this.objectsLayer.renderDebug(debugGraphics, {
     //   titleColor: null,
     //   colldingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
     //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
