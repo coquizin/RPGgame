@@ -11,8 +11,9 @@ class GameScene extends Phaser.Scene {
   create() {
     this.createMap();
 
-    this.blob = this.add.sprite(300, 300, 'blob')
-    // this.blob.play({ key: 'down', repeat: -1 })
+    // this.mage = this.add.sprite(300, 300, 'mage').setScale(2)
+    // console.log(this.mage)
+    // this.mage.play({ key: 'down', repeat: -1 })
     this.createAudio();
     this.createChests();
     
@@ -47,8 +48,7 @@ class GameScene extends Phaser.Scene {
   }
 
   createPlayer() {
-    this.player = new Player(this, 320, 32, 'mage_move_down');
-    
+    this.player = new Player(this, 320, 32, 'mage');
   }
 
   createChests() {

@@ -13,10 +13,8 @@ class BootScene extends Phaser.Scene {
     // load tile map
     this.loadTileMap();
 
-    this.load.atlas("movingCorrect", 'assets/images/movingCorrect.png' ,"assets/images/movingCorrect.json")
-    this.load.aseprite("blob", 'assets/images/character/moving_down/moving_down_100-0.png' ,"assets/images/character/moving_down/moving_down_100-0.json")
-  
-    this.loadAnimations();
+    // this.load.atlas("movingCorrect", 'assets/images/movingCorrect.png' ,"assets/images/movingCorrect.json")
+    this.load.aseprite("mage", 'assets/bruno/mage/mage_down.png' ,"assets/bruno/mage/mage_down.json")
   };
 
   loadImages() {
@@ -67,12 +65,15 @@ class BootScene extends Phaser.Scene {
   };
 
   loadAnimations() {
-    this.anims.createFromAseprite("blob");
+    this.anims.createFromAseprite("mage");
   };
 
   create() {
     console.log('starting game');
 
+    this.loadAnimations();
+
+    
     this.scene.start('Game');
   };
 };

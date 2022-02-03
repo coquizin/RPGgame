@@ -1,12 +1,10 @@
-class Player extends Phaser.Physics.Arcade.Image {
+class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame)
     this.scene = scene; // the scene this container will be added to
     this.velocity = 160; // player velocity
-    // this.anims = scene.anims
 
-    // this.mageAnimation = this.scene.add.sprite(128, 128, 'mage_move_down').setScale(2)
-
+    // this.anims.play({ key: 'down', repeat: -1 })
     // enable physics
     this.scene.physics.world.enable(this);
     // set immable if another object collides with our player
@@ -17,33 +15,47 @@ class Player extends Phaser.Physics.Arcade.Image {
     this.body.setCollideWorldBounds(true);
     // add the to our existing scene
     this.scene.add.existing(this);
-
-    console.log(this)
-    // this.mageAnimation.play({ key: 'mage_move_down', repeat: -1 });
-    // this.anims.create({
-    //   key: 'mage_moving_down',
-    //   frames: this.anims.generateFrameNames('movingCorrect', { start: 0, end: 7, prefix: 'moving_down_100-', suffix: '.png'}),
-    //   frameRate:15,
-    //   repeat: -1
-    // });
-
-    console.log(this.anims)
-    
     // have the caramera following the player
     this.scene.cameras.main.startFollow(this)
   }
 
+  handleAnimation() {
+    if (this.body.velocity.x !== 0) {
+      if (this.body.velocity.x > 0) {
+         // this.anims.play('move_right', true);
+         this.anims.play('down', true);
+      } else {
+        // this.anims.play('move_left', true);
+        this.anims.play('down', true);
+      }
+    } else if (this.body.velocity.y !== 0) {
+      if (this.body.velocity.y > 0) {
+        // this.anims.play('move_down', true);
+        this.anims.play('down', true);
+      } else {
+        // this.anims.play('move_up', true);
+        this.anims.play('down', true);
+        // this.anims.stop()
+      }
+    } else {
+      this.anims.stop();
+    }
+  } 
   
   update(cursors) {
+    this.handleAnimation();
+
     super.update
     {
       this.body.setVelocity(0);
 
       if(cursors.left.isDown) {
         this.body.setVelocityX(-this.velocity);
+        this.setFlipX(false);
       }
       else if(cursors.right.isDown) {
         this.body.setVelocityX(this.velocity);
+        this.setFlipX(true);
       }
 
       if(cursors.up.isDown) {
@@ -51,8 +63,6 @@ class Player extends Phaser.Physics.Arcade.Image {
       }
       else if(cursors.down.isDown) {
         this.body.setVelocityY(this.velocity); 
-        // this.scene.moving_down.play({ key: 'mage_move_down', repeat: -1 });
-        // this.anims.play('mage_moving_down')
       }
     };
   };
