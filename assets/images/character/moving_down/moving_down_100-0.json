@@ -1,0 +1,78 @@
+{ "frames": {
+   "0": {
+    "frame": { "x": 1, "y": 37, "w": 38, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 8, "w": 36, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "1": {
+    "frame": { "x": 83, "y": 1, "w": 39, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 7, "w": 37, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "2": {
+    "frame": { "x": 1, "y": 1, "w": 40, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 7, "w": 38, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "3": {
+    "frame": { "x": 42, "y": 1, "w": 40, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 8, "w": 38, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "4": {
+    "frame": { "x": 40, "y": 37, "w": 39, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 9, "w": 37, "h": 32 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "5": {
+    "frame": { "x": 80, "y": 37, "w": 37, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 10, "w": 35, "h": 32 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "6": {
+    "frame": { "x": 123, "y": 1, "w": 36, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 10, "w": 34, "h": 32 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "7": {
+    "frame": { "x": 118, "y": 37, "w": 37, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 9, "w": 35, "h": 32 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.25-x64",
+  "image": "moving_down_100-0-sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 159, "h": 72 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "down", "from": 0, "to": 7, "direction": "forward" }
+  ]
+ }
+}

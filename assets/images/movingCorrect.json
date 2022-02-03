@@ -1,0 +1,220 @@
+{
+	"textures": [
+		{
+			"image": "movingCorrect.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 119,
+				"h": 110
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "moving_down_100-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 6,
+						"w": 40,
+						"h": 35
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 40,
+						"h": 35
+					},
+					"anchor": {
+						"x": 0.94270833,
+						"y": 0.5625
+					}
+				},
+				{
+					"filename": "moving_down_100-3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 40,
+						"h": 35
+					},
+					"frame": {
+						"x": 43,
+						"y": 1,
+						"w": 40,
+						"h": 35
+					},
+					"anchor": {
+						"x": 0.94270833,
+						"y": 0.5625
+					}
+				},
+				{
+					"filename": "moving_down_100-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 6,
+						"w": 39,
+						"h": 35
+					},
+					"frame": {
+						"x": 1,
+						"y": 38,
+						"w": 39,
+						"h": 35
+					},
+					"anchor": {
+						"x": 0.94270833,
+						"y": 0.5625
+					}
+				},
+				{
+					"filename": "moving_down_100-4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 8,
+						"w": 39,
+						"h": 34
+					},
+					"frame": {
+						"x": 1,
+						"y": 75,
+						"w": 39,
+						"h": 34
+					},
+					"anchor": {
+						"x": 0.94270833,
+						"y": 0.5625
+					}
+				},
+				{
+					"filename": "moving_down_100-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 38,
+						"h": 35
+					},
+					"frame": {
+						"x": 42,
+						"y": 38,
+						"w": 38,
+						"h": 35
+					},
+					"anchor": {
+						"x": 0.94270833,
+						"y": 0.5625
+					}
+				},
+				{
+					"filename": "moving_down_100-6.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 9,
+						"w": 36,
+						"h": 34
+					},
+					"frame": {
+						"x": 82,
+						"y": 38,
+						"w": 36,
+						"h": 34
+					},
+					"anchor": {
+						"x": 0.94270833,
+						"y": 0.5625
+					}
+				},
+				{
+					"filename": "moving_down_100-5.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 9,
+						"w": 37,
+						"h": 34
+					},
+					"frame": {
+						"x": 42,
+						"y": 75,
+						"w": 37,
+						"h": 34
+					},
+					"anchor": {
+						"x": 0.94270833,
+						"y": 0.5625
+					}
+				},
+				{
+					"filename": "moving_down_100-7.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 8,
+						"w": 37,
+						"h": 34
+					},
+					"frame": {
+						"x": 81,
+						"y": 75,
+						"w": 37,
+						"h": 34
+					},
+					"anchor": {
+						"x": 0.94270833,
+						"y": 0.5625
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:991e42da0f2bbfd0ca3c98e6df6fc4e9:8de9908383eee2894e9d79726f7f36df:cac4ffc77fef9c7d1371eb1c421902eb$"
+	}
+}

@@ -12,6 +12,11 @@ class BootScene extends Phaser.Scene {
     this.loadAudio();
     // load tile map
     this.loadTileMap();
+
+    this.load.atlas("movingCorrect", 'assets/images/movingCorrect.png' ,"assets/images/movingCorrect.json")
+    this.load.aseprite("blob", 'assets/images/character/moving_down/moving_down_100-0.png' ,"assets/images/character/moving_down/moving_down_100-0.json")
+  
+    this.loadAnimations();
   };
 
   loadImages() {
@@ -30,6 +35,9 @@ class BootScene extends Phaser.Scene {
     this.load.image('town_2', `assets/images/tilesets_9.png`);
     this.load.image('cave_1', 'assets/images/caves/cave_1.png');
     this.load.image('cave_2', 'assets/images/caves/cave_2.png');
+
+    // load character
+    // this.load.image('mago', 'assets/images/character/magoSmall.png')
   }
 
   loadSpriteSheets() {
@@ -42,6 +50,10 @@ class BootScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32
     });
+    this.load.spritesheet('moving_down', 'assets/images/movingCorrect.png', {
+      frameWidth:40,
+      frameHeight: 38
+    })
   }
 
   loadAudio() {
@@ -54,8 +66,13 @@ class BootScene extends Phaser.Scene {
     this.load.tilemapTiledJSON('map', 'assets/images/cave_farm.json');
   };
 
+  loadAnimations() {
+    this.anims.createFromAseprite("blob");
+  };
+
   create() {
     console.log('starting game');
+
     this.scene.start('Game');
   };
 };

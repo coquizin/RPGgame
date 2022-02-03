@@ -10,11 +10,32 @@ class GameScene extends Phaser.Scene {
 
   create() {
     this.createMap();
+
+    this.blob = this.add.sprite(300, 300, 'blob')
+    // this.blob.play({ key: 'down', repeat: -1 })
     this.createAudio();
     this.createChests();
+    
+    // this.moving_down = this.add.sprite(128, 128, 'movingCorrect', "moving_down_100-1.png").setScale(2)
+    // this.moving_down = this.add.sprite(128, 128, 'mage_move_down').setScale(2)
+   
+
+    // this.anims.create({
+    //   key: 'mage_moving_down',
+    //   frames: this.anims.generateFrameNames('movingCorrect', { start: 0, end: 7, prefix: 'moving_down_100-', suffix: '.png'}),
+    //   frameRate:15,
+    //   repeat: -1
+    // });
+
+    // this.moving_down.anims.play('mage_moving_down')
+    
+
     this.createPlayer();
     this.addCollision();
     this.createInput();
+
+
+  
   };
 
   update() {
@@ -26,7 +47,8 @@ class GameScene extends Phaser.Scene {
   }
 
   createPlayer() {
-    this.player= new Player(this, 32, 32, 'characters', 0);
+    this.player = new Player(this, 320, 32, 'mage_move_down');
+    
   }
 
   createChests() {
