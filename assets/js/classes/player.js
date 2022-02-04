@@ -4,7 +4,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.velocity = 160; // player velocity
 
+    this.loaded = false
+
     this.anims.play(`mage_spawn`).anims.chain({ key: `idle_down`, repeat: -1 })
+
+    setTimeout(() => {
+      this.loaded = true
+    }, 1800)
     
     // this.anims.play({ key: `idle_down`, repeat: -1 });
 
@@ -28,20 +34,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   handleAnimation() {
     if (this.body.velocity.x !== 0) {
       if (this.body.velocity.x > 0) {
-        this.anims.play('idle_side', true);
+        this.anims.play("move_side", true);
         this.lastFlipX = false;
       } else  {
-        this.anims.play('idle_side', true);
+        this.anims.play('move_side', true);
         this.lastFlipX = true;
       }
       
       this.lastAnimation = `idle_side`
     } else if (this.body.velocity.y !== 0) {
       if (this.body.velocity.y > 0) {
-        this.anims.play('idle_down', true);
+        this.anims.play('move_down', true);
         this.lastAnimation = `idle_down`
       } else {
-        this.anims.play('idle_up', true);
+        this.anims.play('move_up', true);
         this.lastAnimation = `idle_up`
       }
 
@@ -54,6 +60,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   } 
   
   update(cursors) {
+    if (!this.loaded) return 
+
     this.handleAnimation();
 
     super.update

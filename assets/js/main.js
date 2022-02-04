@@ -17,7 +17,8 @@ var config = {
       },
     }
   },
-  pixelArt: true
+  pixelArt: true,
+  roundPixels: true
 };
 
 var game = new Phaser.Game(config);
