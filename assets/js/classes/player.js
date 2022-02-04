@@ -4,7 +4,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.velocity = 160; // player velocity
 
-    this.anims.play({ key: `idle_down`, repeat: -1 });
+    this.anims.play(`mage_spawn`).anims.chain({ key: `idle_down`, repeat: -1 })
+    
+    // this.anims.play({ key: `idle_down`, repeat: -1 });
 
     this.lastAnimation = null;
     this.lastFlipX = null;
