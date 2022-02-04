@@ -15,7 +15,7 @@ class BootScene extends Phaser.Scene {
 
     // this.load.atlas("movingCorrect", 'assets/images/movingCorrect.png' ,"assets/images/movingCorrect.json")
     // this.load.aseprite("mage", 'assets/bruno/mage/mage_down.png' ,"assets/bruno/mage/mage_down.json")
-    this.load.aseprite("mage", 'assets/images/character/mage_idle/mage_idle.png' ,"assets/images/character/mage_idle/mage_idle.json")
+    this.load.aseprite("mage", 'assets/images/character/mage_idle.png' ,"assets/images/character/mage_idle.json")
 
   };
 
@@ -25,14 +25,14 @@ class BootScene extends Phaser.Scene {
     this.load.image('button2', 'assets/images/ui/blue_button02.png');
     // load the map tileset image
     this.load.image('tilesets_1', `assets/images/tilesets/tilesets_1.png`);
-    this.load.image('agua1', `assets/images/tilesets/tilesets_2.png`);
-    this.load.image('chao3', `assets/images/tilesets/tilesets_3.png`);
-    this.load.image('chao1', `assets/images/tilesets/tilesets_4.png`);
-    this.load.image('agua2', `assets/images/tilesets/tilesets_5.png`);
-    this.load.image('arvore', `assets/images/tilesets/tilesets_6.png`);
-    this.load.image('flores', `assets/images/tilesets/tilesets_7.png`);
-    this.load.image('town', `assets/images/tilesets/tilesets_8.png`);
-    this.load.image('town_2', `assets/images/tilesets/tilesets_9.png`);
+    this.load.image('tilesets_2', `assets/images/tilesets/tilesets_2.png`);
+    this.load.image('tilesets_3', `assets/images/tilesets/tilesets_3.png`);
+    this.load.image('tilesets_4', `assets/images/tilesets/tilesets_4.png`);
+    this.load.image('tilesets_5', `assets/images/tilesets/tilesets_5.png`);
+    this.load.image('tilesets_6', `assets/images/tilesets/tilesets_6.png`);
+    this.load.image('tilesets_7', `assets/images/tilesets/tilesets_7.png`);
+    this.load.image('tilesets_8', `assets/images/tilesets/tilesets_8.png`);
+    this.load.image('tilesets_9', `assets/images/tilesets/tilesets_9.png`);
     this.load.image('cave_1', 'assets/images/caves/cave_1.png');
     this.load.image('cave_2', 'assets/images/caves/cave_2.png');
 

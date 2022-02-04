@@ -119,15 +119,15 @@ class GameScene extends Phaser.Scene {
 
     
     const titles = []
-    // titles.push(this.map.addTilesetImage('chao1'));
+    // titles.push(this.map.addTilesetImage('tilesets_4'));
     titles.push(this.map.addTilesetImage('tilesets_1'));
-    // titles.push(this.map.addTilesetImage('chao3'));
-    // titles.push(this.map.addTilesetImage('agua1'));
-    // titles.push(this.map.addTilesetImage('agua2'));
-    // titles.push(this.map.addTilesetImage('arvore'));
-    // titles.push(this.map.addTilesetImage('flores'));
-    // titles.push(this.map.addTilesetImage('town'));
-    // titles.push(this.map.addTilesetImage('town_2'));
+    // titles.push(this.map.addTilesetImage('tilesets_3'));
+    // titles.push(this.map.addTilesetImage('tilesets_2'));
+    // titles.push(this.map.addTilesetImage('tilesets_5'));
+    // titles.push(this.map.addTilesetImage('tilesets_6'));
+    // titles.push(this.map.addTilesetImage('tilesets_7'));
+    // titles.push(this.map.addTilesetImage('tilesets_8'));
+    // titles.push(this.map.addTilesetImage('tilesets_9'));
     titles.push(this.map.addTilesetImage('cave_1'));
     titles.push(this.map.addTilesetImage('cave_2'));
 
