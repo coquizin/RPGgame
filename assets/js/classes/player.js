@@ -4,13 +4,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.velocity = 160; // player velocity
 
+    this.anims.play({ key: `idle_down`, repeat: -1 });
+
+    this.lastAnimation = null;
+    this.lastFlipX = null;
     // this.anims.play({ key: 'down', repeat: -1 })
     // enable physics
     this.scene.physics.world.enable(this);
     // set immable if another object collides with our player
     this.setImmovable(false);
     // scale oyr player
-    this.setScale(1.8);
+    this.setScale(2);
     // colide with world bounds
     this.body.setCollideWorldBounds(true);
     // add the to our existing scene
@@ -22,23 +26,28 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   handleAnimation() {
     if (this.body.velocity.x !== 0) {
       if (this.body.velocity.x > 0) {
-         // this.anims.play('move_right', true);
-         this.anims.play('down', true);
-      } else {
-        // this.anims.play('move_left', true);
-        this.anims.play('down', true);
+        this.anims.play('idle_side', true);
+        this.lastFlipX = false;
+      } else  {
+        this.anims.play('idle_side', true);
+        this.lastFlipX = true;
       }
+      
+      this.lastAnimation = `idle_side`
     } else if (this.body.velocity.y !== 0) {
       if (this.body.velocity.y > 0) {
-        // this.anims.play('move_down', true);
-        this.anims.play('down', true);
+        this.anims.play('idle_down', true);
+        this.lastAnimation = `idle_down`
       } else {
-        // this.anims.play('move_up', true);
-        this.anims.play('down', true);
-        // this.anims.stop()
+        this.anims.play('idle_up', true);
+        this.lastAnimation = `idle_up`
       }
+
     } else {
-      this.anims.stop();
+      if (this.body.velocity.x === 0 && this.body.velocity.y === 0 && !this.anims.isPlaying) {
+        this.anims.play({ key: this.lastAnimation, repeat: -1 });
+        this.setFlipX(this.lastFlipX);
+      } 
     }
   } 
   
@@ -51,11 +60,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
       if(cursors.left.isDown) {
         this.body.setVelocityX(-this.velocity);
-        this.setFlipX(false);
+        this.setFlipX(true);
       }
       else if(cursors.right.isDown) {
         this.body.setVelocityX(this.velocity);
-        this.setFlipX(true);
+        this.setFlipX(false);
+        this.lastFlipX = false;
       }
 
       if(cursors.up.isDown) {

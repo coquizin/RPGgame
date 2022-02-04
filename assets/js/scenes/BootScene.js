@@ -14,7 +14,9 @@ class BootScene extends Phaser.Scene {
     this.loadTileMap();
 
     // this.load.atlas("movingCorrect", 'assets/images/movingCorrect.png' ,"assets/images/movingCorrect.json")
-    this.load.aseprite("mage", 'assets/bruno/mage/mage_down.png' ,"assets/bruno/mage/mage_down.json")
+    // this.load.aseprite("mage", 'assets/bruno/mage/mage_down.png' ,"assets/bruno/mage/mage_down.json")
+    this.load.aseprite("mage", 'assets/images/character/mage_idle/mage_idle.png' ,"assets/images/character/mage_idle/mage_idle.json")
+
   };
 
   loadImages() {
