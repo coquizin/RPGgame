@@ -110,7 +110,7 @@ class GameScene extends Phaser.Scene {
 
   createMap() {
     // create the tile map
-    this.map = this.make.tilemap({ key: 'map' })
+    this.map = this.make.tilemap({ key: 'cave' })
     // add the tileset image to our map
 
     // this.map.addTilesetImage('chao2');

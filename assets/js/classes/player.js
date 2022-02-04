@@ -14,7 +14,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     
     // this.anims.play({ key: `idle_down`, repeat: -1 });
 
-    this.lastAnimation = null;
+    this.lastAnimation = `idle_down`;
     this.lastFlipX = null;
     // this.anims.play({ key: 'down', repeat: -1 })
     // enable physics
@@ -53,12 +53,18 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     } else {
       if (this.body.velocity.x === 0 && this.body.velocity.y === 0 && !this.anims.isPlaying) {
-        this.anims.play({ key: this.lastAnimation, repeat: -1 });
+        this.anims.play({ key: this.lastAnimation, repeat: -1 }, true);
         this.setFlipX(this.lastFlipX);
       } 
+      else{
+        this.anims.play({ key: this.lastAnimation, repeat: -1 }, true)
+        this.setFlipX(this.lastFlipX)
+      }
     }
   } 
   
+  
+
   update(cursors) {
     if (!this.loaded) return 
 
