@@ -119,33 +119,10 @@ class GameScene extends Phaser.Scene {
 
     
     const titles = []
-    // titles.push(this.map.addTilesetImage('tilesets_4'));
     titles.push(this.map.addTilesetImage('tilesets_1'));
-    // titles.push(this.map.addTilesetImage('tilesets_3'));
-    // titles.push(this.map.addTilesetImage('tilesets_2'));
-    // titles.push(this.map.addTilesetImage('tilesets_5'));
-    // titles.push(this.map.addTilesetImage('tilesets_6'));
-    // titles.push(this.map.addTilesetImage('tilesets_7'));
-    // titles.push(this.map.addTilesetImage('tilesets_8'));
-    // titles.push(this.map.addTilesetImage('tilesets_9'));
     titles.push(this.map.addTilesetImage('cave_1'));
     titles.push(this.map.addTilesetImage('cave_2'));
 
-
-    // const tilesBackground = []
-    // tilesBackground.push(this.map.addTilesetImage('chao1'));
-    // tilesBackground.push(this.map.addTilesetImage('chao2'));
-    // tilesBackground.push(this.map.addTilesetImage('chao3'));
-
-    // const tilesWater = []
-    // tilesWater.push(this.map.addTilesetImage('agua1'));
-    // tilesWater.push(this.map.addTilesetImage('agua2'));
-
-    // const titleObject = []
-    // titleObject.push(this.map.addTilesetImage('arvore'));
-    // titleObject.push(this.map.addTilesetImage('flores'));
-    // titleObject.push(this.map.addTilesetImage('town'));
-    // titleObject.push(this.map.addTilesetImage('town_2'));
 
     // const backgroundLayer = this.map.createDynamicLayer('background', tilesBackground, 0, 0);
     // const groundLayer = this.map.createDynamicLayer('chao', tilesBackground, 0, 0);

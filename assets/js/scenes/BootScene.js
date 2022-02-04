@@ -29,7 +29,7 @@ class BootScene extends Phaser.Scene {
     this.load.image('cave_1', 'assets/images/caves/cave_1.png');
     this.load.image('cave_2', 'assets/images/caves/cave_2.png');
 
-    // pinmto
+    // pinto
 
   }
 
