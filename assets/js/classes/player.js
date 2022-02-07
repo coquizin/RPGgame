@@ -2,7 +2,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame)
     this.scene = scene; // the scene this container will be added to
-    this.velocity = 200; // player velocity
+    this.velocity = 600; // player velocity
 
     this.loaded = false
 
