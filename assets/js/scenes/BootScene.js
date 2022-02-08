@@ -22,6 +22,16 @@ class BootScene extends Phaser.Scene {
     // load start ui images
     this.load.image('button1', 'assets/images/ui/blue_button01.png');
     this.load.image('button2', 'assets/images/ui/blue_button02.png');
+
+
+
+    this.load.image('GrennBar', 'assets/images/ui/GreenBar.png');
+    this.load.image('Heart', 'assets/images/ui/Heart.png');
+    this.load.image('Iventory', 'assets/images/ui/iventory.png');
+    this.load.image('Quick_tool', 'assets/images/ui/Quick_tool.png');
+    this.load.image('RedBar', 'assets/images/ui/RedBar.png');
+
+
    
     // load the cave tileset image
     this.load.image('tilesets_1', `assets/images/caves/tilesets_1.png`);
