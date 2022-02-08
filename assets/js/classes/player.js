@@ -2,20 +2,34 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame)
     this.scene = scene; // the scene this container will be added to
-    this.velocity = 600; // player velocity
+    this.x = x;
+    this.y = y;
+    this.velocity = 200; // player velocity
+    this.magicRunning = false;
+    this.stopMoving = false;
+
+    this.selectedMagic = `fire`
 
     this.loaded = false
 
+    this.interval = null;
+
     this.anims.play(`mage_spawn`).anims.chain({ key: `idle_down`, repeat: -1 })
 
-    setTimeout(() => {
-      this.loaded = true
-    }, 1800)
+    this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, function () {
+      this.loaded = true  
+    }, this);
     
-    // this.anims.play({ key: `idle_down`, repeat: -1 });
 
     this.lastAnimation = `idle_down`;
     this.lastFlipX = null;
+
+    this.scene.events.on('magic_collision', (magic) => {
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
+    });
+
     // this.anims.play({ key: 'down', repeat: -1 })
     // enable physics
     this.scene.physics.world.enable(this);
@@ -31,7 +45,82 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.cameras.main.startFollow(this)
   }
 
-  handleAnimation() {
+  setMagics(magics) {
+    this.magics = magics
+  }
+
+  throwMagic(name) {
+    if (!this.magics) return
+    if (this.magicRunning) return
+
+    console.log(this)
+
+    this.magicRunning = true;
+    this.stopMoving = true;
+    this.body.setVelocity(0);
+    const { key, damage, speed, delay, cooldown, x, y, vector, animation, magicAnimation, maxDistance } = new Magic(name, this.x, this.y, this.lastAnimation, this.lastFlipX).get()
+    const magic = this.magics.get(x, y, key)
+
+    if (!magic) return
+
+    magic.setActive(false)
+    magic.setVisible(false)
+
+    this.anims.play(animation, true)
+   
+    this.scene.time.delayedCall(delay, () => {
+      const vec = new Phaser.Math.Vector2(vector.x, vector.y);
+      
+      magic.setVelocity(vec.x * speed, vec.y * speed);
+      magic.setScale(2)
+      magic.setFlipX(!this.lastFlipX)
+
+      magic.setActive(true)
+      magic.setVisible(true)
+      
+      magic.anims.play({key: magicAnimation, repeat: -1}, true)
+
+    
+      this.stopMoving = false;
+      this.scene.time.delayedCall(cooldown-delay, () => {
+        this.magicRunning = false;
+        this.anims.stop()
+      })
+
+    }, [], this);
+
+    this.interval = setInterval(() => {
+      switch (this.lastAnimation) {
+        case 'idle_up':
+          if (maxDistance > magic.y) {
+            magic.destroy() 
+            clearInterval(this.interval)
+          }
+          break
+        case 'idle_down':
+          if (maxDistance < magic.y) {
+            magic.destroy() 
+            clearInterval(this.interval)
+          }
+        break 
+        case 'idle_side':
+          if (this.lastFlipX) {
+            if (maxDistance > magic.x) {
+              magic.destroy() 
+              clearInterval(this.interval)
+            }
+          } else {
+            if (maxDistance < magic.x) {
+              magic.destroy() 
+              clearInterval(this.interval)
+            }
+          }
+          break
+      }
+    }, 100)
+  }
+
+  handleBody() {
     if (this.body.velocity.x !== 0) {
       if (this.body.velocity.x > 0) {
         this.anims.play("move_side", true);
@@ -50,8 +139,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('move_up', true);
         this.lastAnimation = `idle_up`
       }
-
     } else {
+      if (this.anims.isPlaying) return;
+
       if (this.body.velocity.x === 0 && this.body.velocity.y === 0 && !this.anims.isPlaying) {
         this.anims.play({ key: this.lastAnimation, repeat: -1 }, true);
         this.setFlipX(this.lastFlipX);
@@ -64,12 +154,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   } 
   
   
-
   update(cursors) {
     if (!this.loaded) return 
-
-    this.handleAnimation();
-
+    if(this.stopMoving) return
+    this.handleBody();
+    
     super.update
     {
       this.body.setVelocity(0);
@@ -91,5 +180,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setVelocityY(this.velocity); 
       }
     };
+
+    if (Phaser.Input.Keyboard.JustDown(cursors.space)){
+      this.throwMagic(this.selectedMagic)
+      return
+    }
+
+   
   };
 }

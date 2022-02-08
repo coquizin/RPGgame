@@ -10,45 +10,34 @@ class GameScene extends Phaser.Scene {
 
   create() {
     this.createMap();
-
-    // this.mage = this.add.sprite(300, 300, 'mage').setScale(2)
-    // console.log(this.mage)
-    // this.mage.play({ key: 'down', repeat: -1 })
     this.createAudio();
     this.createChests();
-    
-    // this.moving_down = this.add.sprite(128, 128, 'movingCorrect', "moving_down_100-1.png").setScale(2)
-    // this.moving_down = this.add.sprite(128, 128, 'mage_move_down').setScale(2)
-   
-
-    // this.anims.create({
-    //   key: 'mage_moving_down',
-    //   frames: this.anims.generateFrameNames('movingCorrect', { start: 0, end: 7, prefix: 'moving_down_100-', suffix: '.png'}),
-    //   frameRate:15,
-    //   repeat: -1
-    // });
-
-    // this.moving_down.anims.play('mage_moving_down')
-    
-
+    this.createMagics();
     this.createPlayer();
     this.addCollision();
     this.createInput();
-
-
-  
+    
+    console.log(`update`)
   };
 
   update() {
     this.player.update(this.cursors);
-  };
+    // colisao das magias
+  }
 
   createAudio() {
     this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.2})
   }
 
+  createMagics(){
+    this.magics = this.physics.add.group({
+      classType: Phaser.Physics.Arcade.Sprite,
+    });
+  }
+
   createPlayer() {
-    this.player = new Player(this, 320, 32, 'mage');
+    this.player = new Player(this, 320, 32, 'mage', null);
+    this.player.setMagics(this.magics)
   }
 
   createChests() {
@@ -86,14 +75,20 @@ class GameScene extends Phaser.Scene {
 
   addCollision() {
     //  colisao
-    this.physics.add.collider(this.player, this.wall);
-    this.physics.add.collider(this.player, this.waterLayer);
-    this.physics.add.collider(this.player, this.objectsLayer);
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
     this.physics.add.collider(this.player, this.objectsLayer);
     this.physics.add.collider(this.player, this.deepCaveLayer);
+    
+
+    this.physics.add.collider(this.magics, this.objectsLayer, this.handleMagicCollision, undefined, this);
+    this.physics.add.collider(this.magics, this.deepCaveLayer, this.handleMagicCollision, undefined, this);
   }
 
+  handleMagicCollision(obj1) {
+    this.magics.killAndHide(obj1)
+    this.events.emit('magic_collision', obj1)
+  }
+ 
 
   collectChest(player, chest) {
     // play sound
@@ -119,7 +114,7 @@ class GameScene extends Phaser.Scene {
 
     
     const titles = []
-    titles.push(this.map.addTilesetImage('tilesets_1'));
+    // titles.push(this.map.addTilesetImage('tilesets_1'));
     titles.push(this.map.addTilesetImage('cave_1'));
     titles.push(this.map.addTilesetImage('cave_2'));
 

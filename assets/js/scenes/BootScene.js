@@ -12,11 +12,10 @@ class BootScene extends Phaser.Scene {
     this.loadAudio();
     // load tile map
     this.loadTileMap();
-
-    // this.load.atlas("movingCorrect", 'assets/images/movingCorrect.png' ,"assets/images/movingCorrect.json")
-    // this.load.aseprite("mage", 'assets/bruno/mage/mage_down.png' ,"assets/bruno/mage/mage_down.json")
+    // load animation mage
     this.load.aseprite("mage", 'assets/images/character/player/mage_idle.png' ,"assets/images/character/player/mage_idle.json")
-
+    // load magic animation
+    this.load.aseprite('water_magic', 'assets/images/character/player/attacks/water_magic/water_magic.png', 'assets/images/character/player/attacks/water_magic/water_magic.json')
   };
 
   loadImages() {
@@ -53,6 +52,7 @@ class BootScene extends Phaser.Scene {
 
   loadAnimations() {
     this.anims.createFromAseprite("mage");
+    this.anims.createFromAseprite("water_magic");
   };
 
   create() {
