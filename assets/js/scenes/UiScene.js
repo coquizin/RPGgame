@@ -10,23 +10,15 @@ class UiScene extends Phaser.Scene {
 
   create() {
     // this.setupUiElements();
-    // this.setupEvents();
     this.createMoldura()
     this.createToll()
- 
     
-    const hearts = this.add.group({
-      classType: Phaser.GameObjects.Image
-    })
-      hearts.createMultiple({
-        key: 'heartFull',
-        setXY:{
-          x: 100,
-          y: 40,
-         stepX: 22,
-        },
-        quantity: 8
-    })
+    this.hpBar = new Bar('health', this.gameScene, 105, 18);
+    this.manaBar = new Bar('mana', this.gameScene, 105, 42);
+    
+    this.setupEvents();
+
+   
   }
 
     createMoldura(){
@@ -43,10 +35,14 @@ class UiScene extends Phaser.Scene {
   //   this.coinIcon = this.add.image(15,15, 'items', 3)
   // }
 
-  // setupEvents() {
-  //   // listen for the updateScore event from the game scene
-  //   this.gameScene.events.on('updateScore', (score) => {
-  //     this.scoreText.setText(`Coins: ${score}`)
-  //   });
-  // }
+  setupEvents() {
+    // listen for the updateScore event from the game scene
+    this.gameScene.events.on('playerDamageHealth', (value) => {
+      this.hpBar.decrease(value)
+    });
+
+    this.gameScene.events.on('playerWasteMana', (value) => {
+      this.manaBar.decrease(value)
+    });
+  }
 }

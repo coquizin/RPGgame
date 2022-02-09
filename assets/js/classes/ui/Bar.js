@@ -1,0 +1,74 @@
+class Bar { 
+    constructor (name, scene, x, y)
+    {
+        this.bar = new Phaser.GameObjects.Graphics(scene);
+        this.bar.setScrollFactor(0, 0);
+        
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.value = 100;
+        this.p = 120 / 100;
+
+        this.draw();
+
+        scene.add.existing(this.bar);
+    }
+
+    increase (amount)
+    {
+        this.value += amount;
+
+        if (this.value > 0)
+        {
+            this.value = 100;
+        }
+
+        this.draw();
+
+        return (this.value === 100);
+    }
+
+    decrease (amount)
+    {
+        this.value -= amount;
+
+        if (this.value < 0)
+        {
+            this.value = 0;
+        }
+
+        this.draw();
+
+        return (this.value === 0);
+    }
+
+    draw ()
+    {
+        this.bar.clear();
+
+        this.bar.fillStyle(0xffffff);
+        this.bar.fillRoundedRect(this.x, this.y, 124, 19, 0);
+
+        if (this.value < 30)
+        {
+            if (this.name === 'health') {
+                this.bar.fillStyle(0x07F203);
+            } else if (this.name === 'mana') {
+                this.bar.fillStyle(0x1E1CFF);
+            }
+        }
+        else
+        {
+            if (this.name === 'health') {
+                this.bar.fillStyle(0x07F203);
+            } else if (this.name === 'mana') {
+                this.bar.fillStyle(0x1E1CFF);
+            }
+        }
+
+        var d = Math.floor(this.p * this.value);
+
+        this.bar.fillRoundedRect(this.x + 2, this.y + 2, d, 15, 0);
+    }
+}
