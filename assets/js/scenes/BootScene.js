@@ -34,7 +34,7 @@ class BootScene extends Phaser.Scene {
 
    
     // load the cave tileset image
-    this.load.image('tilesets_1', `assets/images/caves/tilesets_1.png`);
+    this.load.image('fullTiles', `assets/images/tilesets/fullTiles.png`);
     this.load.image('cave_1', 'assets/images/caves/cave_1.png');
     this.load.image('cave_2', 'assets/images/caves/cave_2.png');
 

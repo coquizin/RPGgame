@@ -4,7 +4,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.x = x;
     this.y = y;
-    this.velocity = 200; // player velocity
+    this.velocity = 600; // player velocity
     this.magicRunning = false;
     this.stopMoving = false;
 
@@ -53,7 +53,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     if (!this.magics) return
     if (this.magicRunning) return
 
-    console.log(this)
 
     this.magicRunning = true;
     this.stopMoving = true;

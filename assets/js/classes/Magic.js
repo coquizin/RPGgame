@@ -18,7 +18,7 @@ class Magic {
         this.speed = 1000;
         this.cooldown = 2000;
         this.delay = 450;
-        this.distance = 48 * S // 10 eh o sqm/bloco
+        this.distance = 48 * 10 // 10 eh o sqm/bloco
         break;
       case `fire`:
         this.key = `water_magic`;
