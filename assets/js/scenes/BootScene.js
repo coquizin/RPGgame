@@ -25,11 +25,14 @@ class BootScene extends Phaser.Scene {
 
 
 
-    this.load.image('GrennBar', 'assets/images/ui/GreenBar.png');
-    this.load.image('Heart', 'assets/images/ui/Heart.png');
-    this.load.image('Iventory', 'assets/images/ui/iventory.png');
+
+  
+    this.load.image('Iventory', 'assets/images/ui/inventory.png');
     this.load.image('Quick_tool', 'assets/images/ui/Quick_tool.png');
-    this.load.image('RedBar', 'assets/images/ui/RedBar.png');
+    this.load.image('moldura', 'assets/images/ui/moldura.png');
+
+    this.load.image('heartFull', 'assets/images/ui/heartFull.png');
+    this.load.image('heartEmpyt', 'assets/images/ui/heartEmpyt.png');
 
 
    
