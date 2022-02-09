@@ -71,14 +71,13 @@ class GameScene extends Phaser.Scene {
   }
 
   spawnMonster(monsterObject) {
-    console.log(monsterObject);
     let monster = this.monsters.getFirstDead();
     if(!monster) {
       monster = new Monster(
         this, 
         monsterObject.x, 
         monsterObject.y, 
-        "mage",  
+        "carrot_enemy",  
         monsterObject.id,
         monsterObject.health,
         monsterObject.maxHealth,
@@ -101,18 +100,40 @@ class GameScene extends Phaser.Scene {
   }
 
   addCollision() {
-    //  colisao
+    //  collision player
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
+    this.physics.add.collider(this.player, this.monsters);
     this.physics.add.collider(this.player, this.objectsLayer);
     this.physics.add.collider(this.player, this.deepCaveLayer);
-    
 
+    this.physics.add.overlap(this.player, this.monsters, this.playerEnemyOverlap, undefined, this)
+
+    // collision monster
+    this.physics.add.collider(this.monsters, this.monsters);
+    this.physics.add.collider(this.monsters, this.objectsLayer);
+    this.physics.add.collider(this.monsters, this.deepCaveLayer);
+
+
+    // collision magic
     this.physics.add.collider(this.magics, this.objectsLayer, this.handleMagicCollision, undefined, this);
     this.physics.add.collider(this.magics, this.deepCaveLayer, this.handleMagicCollision, undefined, this);
+    
+    this.physics.add.overlap(this.magics, this.monsters, this.magicEnemyOverlap, undefined, this);
+  }
+
+  playerEnemyOverlap(player, enemy) {
+  this.events.emit('destroyEnemy', enemy.id)
+  }
+
+  magicEnemyOverlap(magic, enemy) {
+    // enemy.makeInactive();
+    // this.magics.killAndHide(magic)
+    magic.destroy()
+    this.events.emit('monsterAttacked', enemy.id)
   }
 
   handleMagicCollision(obj1) {
-    this.magics.killAndHide(obj1)
+    obj1.destroy()
     this.events.emit('magic_collision', obj1)
   }
  
@@ -210,7 +231,14 @@ class GameScene extends Phaser.Scene {
     this.events.on('monsterSpawn', (monster) => {
       this.spawnMonster(monster)
     });
-
+    
+    this.events.on('monsterRemoved', (monsterId) => {
+      this.monsters.getChildren().forEach((monster) => {
+        if (monster.id === monsterId) {
+          monster.makeInactive();
+        }
+      })
+    })
     this.gameManager = new GameManager(this, this.map.objects);
     this.gameManager.setup();
   }

@@ -7,10 +7,11 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
     this.health = health;
     this.maxHealth = maxHealth;
 
-    console.log(this.key)
+    this.anims.play({ key: `carrot_idle_down`, repeat: -1}, true)
     // enable physics
     this.scene.physics.world.enable(this);
   
+    this.setImmovable(false);
     // scale our monster
     this.setScale(2);
     // colide with world bounds
@@ -19,6 +20,8 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
     this.scene.add.existing(this);
   
   }
+
+  
 
   makeActive() {
     this.setActive(true);

@@ -16,6 +16,8 @@ class BootScene extends Phaser.Scene {
     this.load.aseprite("mage", 'assets/images/character/player/mage_idle.png' ,"assets/images/character/player/mage_idle.json")
     // load magic animation
     this.load.aseprite('water_magic', 'assets/images/character/player/attacks/water_magic/water_magic.png', 'assets/images/character/player/attacks/water_magic/water_magic.json')
+   // load enemy carrot
+   this.load.aseprite('carrot_enemy', 'assets/images/enemies/carrot_char.png', 'assets/images/enemies/carrot_char.json')
   };
 
   loadImages() {
@@ -66,6 +68,7 @@ class BootScene extends Phaser.Scene {
   loadAnimations() {
     this.anims.createFromAseprite("mage");
     this.anims.createFromAseprite("water_magic");
+    this.anims.createFromAseprite("carrot_enemy")
   };
 
   create() {

@@ -16,6 +16,7 @@ class Spawner {
 
   start() {
     this.interval = setInterval(() => {
+      // console.log(this.objectsCreated.length)
       if (this.objectsCreated.length < this.limit) {
         this.spawnObject()
       }
@@ -29,15 +30,21 @@ class Spawner {
   }
 
   spawnMonster() {
-   
-    let monster = new MonsterModel(this.spawnLocation.x, this.spawnLocation.y, 10, this.id, 100, 10);
+    let monster = new MonsterModel(
+      this.spawnLocation.x, 
+      this.spawnLocation.y, 
+      10, 
+      this.id, 
+      100, 
+      10
+    );
     this.objectsCreated.push(monster);
     this.addObject(monster.id, monster);
-    
+    console.log(monster.id)
   }
 
   removeObject(id) {
-    this.objectsCreated = this.objectsCreated.filter(obj => obj.id !== id);
+    this.objectsCreated = this.objectsCreated.filter(obj => obj !== id);
     this.deleteObject(id);
   }
 

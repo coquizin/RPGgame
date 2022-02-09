@@ -8,7 +8,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.magicRunning = false;
     this.stopMoving = false;
 
-    this.selectedMagic = `fire`
+    this.selectedMagic = `water`
 
     this.loaded = false
 
@@ -45,8 +45,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.cameras.main.startFollow(this)
 
     // this.createHealthBar();
-    
-    this.setOrigin(0)
   }
 
   setMagics(magics) {
