@@ -43,6 +43,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.add.existing(this);
     // have the caramera following the player
     this.scene.cameras.main.startFollow(this)
+
+    // this.createHealthBar();
+    
+    this.setOrigin(0)
   }
 
   setMagics(magics) {
