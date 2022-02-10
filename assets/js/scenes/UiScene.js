@@ -10,12 +10,9 @@ class UiScene extends Phaser.Scene {
 
   create() {
     // this.setupUiElements();
-    this.createMoldura()
-    this.createToll()
-    
-    this.hpBar = new Bar('health', this.gameScene, 105, 18);
-    this.manaBar = new Bar('mana', this.gameScene, 105, 42);
-    
+    this.createMoldura();
+    this.createToll();
+    this.createBar();
     this.setupEvents();
 
 
@@ -36,14 +33,20 @@ class UiScene extends Phaser.Scene {
     // })
    
   }
+  
+  createBar() {
+    this.hpBar = new Bar('health', this.gameScene, 105, 18, this.gameScene.player.maxHealth);
+    console.log(this.gameScene.player.maxHealth)
+    this.manaBar = new Bar('mana', this.gameScene, 105, 42, this.gameScene.player.maxMana);
+  }
 
-    createMoldura(){
-      this.molduraIcon = this.add.image(50,40,'moldura').setScale(1.5)
-    }
+  createMoldura(){
+     this.molduraIcon = this.add.image(50,40,'moldura').setScale(1.5)
+  }
 
-    createToll(){
-      this.tollIcon = this.add.image(550,780,'Quick_tool').setScale(2)
-    }
+ createToll(){
+    this.tollIcon = this.add.image(550,780,'Quick_tool').setScale(2)
+  }
   // setupUiElements() {
   //   // create the score text game object
   //   this.scoreText = this.add.text(35, 8, 'Coins: 0', {fontSize: '16px', fill: '#fff'})
@@ -53,12 +56,13 @@ class UiScene extends Phaser.Scene {
 
   setupEvents() {
     // listen for the updateScore event from the game scene
-    this.gameScene.events.on('playerDamageHealth', (value) => {
+    this.gameScene.events.on('playerDamageHealthBar', (value) => {
       this.hpBar.decrease(value)
     });
 
-    this.gameScene.events.on('playerWasteMana', (value) => {
+    this.gameScene.events.on('playerWasteManaBar', (value) => {
       this.manaBar.decrease(value)
+
     });
   }
 }

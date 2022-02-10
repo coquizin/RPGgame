@@ -44,8 +44,16 @@ class GameScene extends Phaser.Scene {
     
   }
 
-  createPlayer(location) {
-    this.player = new Player(this, location.x, location.y, 'mage', null);
+  createPlayer(playerObject) {
+    this.player = new Player(this, 
+      playerObject.x,
+      playerObject.y,
+      'mage',
+      playerObject.health,
+      playerObject.maxHealth,
+      playerObject.maxMana,
+      playerObject.mana,
+    );
     // this.player.setDepth(1);
     this.player.setMagics(this.magics)
   }
@@ -104,11 +112,11 @@ class GameScene extends Phaser.Scene {
   addCollision() {
     //  collision player
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
-    this.physics.add.collider(this.player, this.monsters);
+    // this.physics.add.collider(this.player, this.monsters);
     this.physics.add.collider(this.player, this.objectsLayer);
     this.physics.add.collider(this.player, this.deepCaveLayer);
 
-    this.physics.add.overlap(this.player, this.monsters, this.playerEnemyOverlap, undefined, this)
+    this.physics.add.collider(this.player, this.monsters, this.playerEnemyOverlap, undefined, this)
 
     // collision monster
     this.physics.add.collider(this.monsters, this.monsters);
@@ -123,15 +131,16 @@ class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.magics, this.monsters, this.magicEnemyOverlap, undefined, this);
   }
 
-  playerEnemyOverlap(player, enemy) {
-    this.events.emit('destroyEnemy', enemy.id)
+  playerEnemyOverlap(player, monster) {
+    const payload = {player, monster}
+    this.events.emit('playerAttacked', payload)
   }
 
-  magicEnemyOverlap(magic, enemy) {
-    // enemy.makeInactive();
-    // this.magics.killAndHide(magic)
+  magicEnemyOverlap(magic, monster) {
+    const payload = {magic, monster}
+
     magic.destroy()
-    this.events.emit('monsterAttacked', enemy)
+    this.events.emit('monsterAttacked', payload)
   }
 
   handleMagicCollision(obj1) {
@@ -225,8 +234,8 @@ class GameScene extends Phaser.Scene {
   }
 
   createGameManager() {
-    this.events.on('spawnPlayer', (location) => {
-      this.createPlayer(location);
+    this.events.on('spawnPlayer', (playerObject) => {
+      this.createPlayer(playerObject);
       this.addCollision();
     });
 
@@ -241,6 +250,7 @@ class GameScene extends Phaser.Scene {
         }
       })
     })
+    
     this.gameManager = new GameManager(this, this.map.objects);
     this.gameManager.setup();
   }

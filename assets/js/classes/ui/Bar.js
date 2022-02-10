@@ -1,5 +1,5 @@
 class Bar { 
-    constructor (name, scene, x, y)
+    constructor (name, scene, x, y, valueMax)
     {
         this.bar = new Phaser.GameObjects.Graphics(scene);
         this.bar.setScrollFactor(0, 0);
@@ -7,7 +7,7 @@ class Bar {
         this.name = name;
         this.x = x;
         this.y = y;
-        this.value = 100;
+        this.value = valueMax;
         this.p = 120 / 100;
 
         this.draw();

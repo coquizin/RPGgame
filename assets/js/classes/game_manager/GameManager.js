@@ -5,6 +5,7 @@ class GameManager {
 
     this.spawners = {};
     this.monsters = {};
+    this.player = null;
 
     this.playerLocation = {};
     // AAA
@@ -33,14 +34,35 @@ class GameManager {
   }
 
   setupEventListener() {
-    this.scene.events.on('monsterAttacked', (monster) => { 
+    this.scene.events.on('monsterAttacked', ({magic, monster}) => { 
+
+      const { damage } = new Magic(magic.name).get()
+
       if (this.monsters[monster.id]) {
-        this.monsters[monster.id].loseHealth()
+        this.monsters[monster.id].loseHealth(damage)
         monster.updateHealth(this.monsters[monster.id].health)
         // check monster health
         if (this.monsters[monster.id].health <= 0) {
           this.deleteMonster(monster.id)
           this.scene.events.emit('monsterRemoved', monster.id)
+          //TODO: rewards from monsters
+        }
+      }
+    })
+
+    this.scene.events.on('playerAttacked', ({player, monster}) => {
+      if(this.player) {
+        this.player.loseHealth(monster.damage)
+        player.updateHealth(this.player.health)
+      
+
+        if (this.player.health <= 0) {
+          // this.player = null;
+          // player.destroy()
+
+          // this.deleteMonster(monster.id)
+          // this.scene.events.emit('monsterRemoved', monster.id)
+          //TODO: rewards from monsters
         }
       }
     })
@@ -77,7 +99,9 @@ class GameManager {
   }
 
   spawnPlayer() {
-    this.scene.events.emit('spawnPlayer', this.playerLocation);
+    const player = new PlayerModel(this.playerLocation)
+    this.player = player;
+    this.scene.events.emit('spawnPlayer', player);
   }
 
   addMonster(monster) {
