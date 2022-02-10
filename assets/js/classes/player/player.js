@@ -8,7 +8,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.magicRunning = false;
     this.stopMoving = false;
 
-    this.selectedMagic = `fire`
+    this.selectedMagic = 'fire'
 
     this.loaded = false
 
@@ -28,6 +28,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       if (this.interval) {
         clearInterval(this.interval)
       }
+    });
+
+    this.scene.events.on('magic_selected', (magic) => {
+      this.selectedMagic = magic
     });
 
     // this.anims.play({ key: 'down', repeat: -1 })

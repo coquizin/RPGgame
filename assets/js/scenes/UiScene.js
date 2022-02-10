@@ -18,6 +18,22 @@ class UiScene extends Phaser.Scene {
     
     this.setupEvents();
 
+
+    this.waterButton = this.add.image( 483, 783,'water_magic_button').setScale(1.8)
+    this.waterButton.setInteractive()
+
+    this.fireButton = this.add.image( 548, 783,'fire_magic_button').setScale(1.8)
+    this.fireButton.setInteractive()
+
+    this.potionButton = this.add.image( 609, 783,'potion').setScale(1.8)
+    this.potionButton.setInteractive()
+
+  
+
+    // this.input.on('pointerdown',function(pointer,gameObject,pointerdownX, pointerdownY){
+    //   gameObject.x= pointerdownX;
+    //   gameObject.y= pointerdownY;
+    // })
    
   }
 

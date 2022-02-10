@@ -44,7 +44,16 @@ class BootScene extends Phaser.Scene {
     this.load.image('fullTiles', `assets/images/tilesets/fullTiles.png`);
     this.load.image('cave_1', 'assets/images/caves/cave_1.png');
     this.load.image('cave_2', 'assets/images/caves/cave_2.png');
+    
+    
+    //UI button of quick toll
+    this.load.image('potion', 'assets/images/ui/potion.png');
+    this.load.image('water_magic_button', 'assets/images/ui/water_magic_button.png');
+    this.load.image('fire_magic_button', 'assets/images/ui/fire_magic_button.png');
 
+
+
+    
     // pinto
 
   }
