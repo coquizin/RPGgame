@@ -9,8 +9,7 @@ class MonsterModel {
     this.attack = attack;
   }
 
-  loseHealth() {
-    this.health -= 80;
-    console.log(this.health)
+  loseHealth(damage) {
+    this.health -= damage;
   }
 }

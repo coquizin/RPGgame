@@ -8,6 +8,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
     this.y = y;
     this.health = health;
     this.maxHealth = maxHealth;
+    this.damage = 10;
 
     this.anims.play({ key: `${key}_idle_down`, repeat: -1}, true)
     // enable physics
@@ -38,6 +39,8 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
   }
 
   updateHealth(health) {
+    if (this.health <= 0) return;
+
     this.health = health;
     this.updateHealthBar();
   }

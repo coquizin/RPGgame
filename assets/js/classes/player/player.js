@@ -1,10 +1,15 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, key, frame) {
-    super(scene, x, y, key, frame)
+  constructor(scene, x, y, key, health, maxHealth, maxMana, mana) {
+    super(scene, x, y, key)
     this.scene = scene; // the scene this container will be added to
     this.x = x;
     this.y = y;
     this.velocity = 600; // player velocity
+    this.health = health;
+    this.maxHealth = maxHealth;
+    this.maxMana = maxMana;
+    this.mana = mana;
+
     this.magicRunning = false;
     this.stopMoving = false;
 
@@ -37,6 +42,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.setImmovable(false);
     // scale oyr player
     this.setScale(2);
+
+    this.setSize(36)
     // colide with world bounds
     this.body.setCollideWorldBounds(true);
     // add the to our existing scene
@@ -54,13 +61,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   throwMagic(name) {
     if (!this.magics) return
     if (this.magicRunning) return
-
+    if (this.mana <= 0) return
 
     this.magicRunning = true;
     this.stopMoving = true;
     this.body.setVelocity(0);
-    const { key, damage, speed, delay, cooldown, x, y, vector, animation, magicAnimation, maxDistance } = new Magic(name, this.x, this.y, this.lastAnimation, this.lastFlipX).get()
+    const { key, damage, speed, delay, cooldown, x, y, vector, animation, magicAnimation, maxDistance, mana } = new Magic(name, this.x, this.y, this.lastAnimation, this.lastFlipX).get()
     const magic = this.magics.get(x, y, key)
+    magic.setName(this.selectedMagic)
 
     if (!magic) return
 
@@ -82,6 +90,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       
       magic.anims.play({key: magicAnimation, repeat: -1}, true)
 
+      // mana decreased
+      this.scene.events.emit('playerWasteManaBar', mana)
+      this.mana -= mana
     
       this.stopMoving = false;
       this.scene.time.delayedCall(cooldown-delay, () => {
@@ -120,6 +131,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
           break
       }
     }, 100)
+  }
+
+  updateHealth( health ) {
+    if (this.health <= 0) return;
+    this.health = health
+    this.scene.events.emit('playerDamageHealthBar', health)
   }
 
   handleBody() {

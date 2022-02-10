@@ -18,15 +18,17 @@ class Magic {
         this.speed = 1000;
         this.cooldown = 2000;
         this.delay = 450;
-        this.distance = 48 * 10 // 10 eh o sqm/bloco
+        this.distance = 48 * 10// 10 eh o sqm/bloco
+        this.mana = 10;
         break;
       case `fire`:
         this.key = `water_magic`;
-        this.damage = 15;
-        this.speed = 50;
+        this.damage = 30;
+        this.speed = 150;
         this.cooldown = 500;
         this.delay = 450;
         this.distance = 48 * 100
+        this.mana = 1;
         break;
     }
 
@@ -84,7 +86,8 @@ class Magic {
       animation: this.animation,
       magicAnimation: this.magicAnimation,
       distance: this.distance,
-      maxDistance: this.maxDistance
+      maxDistance: this.maxDistance,
+      mana: this.mana
     }
   }
 }
