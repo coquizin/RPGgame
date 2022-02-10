@@ -18,7 +18,15 @@ class GameScene extends Phaser.Scene {
   };
 
   update() {
-    if (this.player) this.player.update(this.cursors);
+    if (this.player) {
+      this.player.update(this.cursors);
+    }
+
+    if (this.monsters) {
+      this.monsters.getChildren().forEach((monster) => {
+        monster.update(monster.x, monster.y)
+      })
+    }
   }
 
   createAudio() {
@@ -71,27 +79,21 @@ class GameScene extends Phaser.Scene {
   }
 
   spawnMonster(monsterObject) {
-    let monster = this.monsters.getFirstDead();
-    if(!monster) {
-      monster = new Monster(
-        this, 
-        monsterObject.x, 
-        monsterObject.y, 
-        "carrot_enemy",  
-        monsterObject.id,
-        monsterObject.health,
-        monsterObject.maxHealth,
-      );
-      //add chest to chests group
-      this.monsters.add(monster);
-    } 
-    else {
-      monster.id = monsterObject.id
-      monster.health = monsterObject.health
-      monster.maxHealth = monsterObject.maxHealth
-      monster.setPosition(monsterObject * 2, monsterObject * 2);
-      monster.makeActive();
-    };
+    const monster = new Monster(
+      this, 
+      monsterObject.x, 
+      monsterObject.y, 
+      "rat",  
+      monsterObject.id,
+      monsterObject.health,
+      monsterObject.maxHealth,
+    );
+
+    //add chest to chests group
+    this.monsters.add(monster);
+    
+    monster.setCollideWorldBounds(true);
+    monster.setImmovable(true)
   }
   
 
@@ -122,14 +124,14 @@ class GameScene extends Phaser.Scene {
   }
 
   playerEnemyOverlap(player, enemy) {
-  this.events.emit('destroyEnemy', enemy.id)
+    this.events.emit('destroyEnemy', enemy.id)
   }
 
   magicEnemyOverlap(magic, enemy) {
     // enemy.makeInactive();
     // this.magics.killAndHide(magic)
     magic.destroy()
-    this.events.emit('monsterAttacked', enemy.id)
+    this.events.emit('monsterAttacked', enemy)
   }
 
   handleMagicCollision(obj1) {
@@ -235,7 +237,7 @@ class GameScene extends Phaser.Scene {
     this.events.on('monsterRemoved', (monsterId) => {
       this.monsters.getChildren().forEach((monster) => {
         if (monster.id === monsterId) {
-          monster.makeInactive();
+          monster.destroyMonster();
         }
       })
     })

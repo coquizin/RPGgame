@@ -23,10 +23,10 @@ class Magic {
       case `fire`:
         this.key = `water_magic`;
         this.damage = 15;
-        this.speed = 400;
+        this.speed = 50;
         this.cooldown = 500;
         this.delay = 450;
-        this.distance = 48 * 5
+        this.distance = 48 * 100
         break;
     }
 

@@ -19,7 +19,6 @@ class GameManager {
   }
 
   parseMapData() {
-    // console.log(this.mapData);
     this.mapData.forEach((layer) => {
       if (layer.name === 'player_spawn') {
         layer.objects.forEach((obj) => {
@@ -31,43 +30,49 @@ class GameManager {
         })
       }
     })
-    // console.log(this.monsterLocation)
   }
 
   setupEventListener() {
-    this.scene.events.on('monsterAttacked', (monsterId) => { 
-      if (this.monsters[monsterId]) {
-        // subtract monster health
-        this.monsters[monsterId].loseHealth()
-
+    this.scene.events.on('monsterAttacked', (monster) => { 
+      if (this.monsters[monster.id]) {
+        this.monsters[monster.id].loseHealth()
+        monster.updateHealth(this.monsters[monster.id].health)
         // check monster health
-        if (this.monsters[monsterId].health <= 0) {
-          this.spawners[this.monsters[monsterId].spawnerId].removeObject(monsterId)
-          this.scene.events.emit('monsterRemoved', monsterId)
+        if (this.monsters[monster.id].health <= 0) {
+          this.deleteMonster(monster.id)
+          this.scene.events.emit('monsterRemoved', monster.id)
         }
       }
     })
   }
 
   setupSpawners() {
-    let spawner;
-    const config = {
-      spawnInterval: 0,
-      limit: 1,
-      spawnerType: '', 
-      id: '',
-    }
+    this.monstersSpawners()
+
+    this.timedEvent = this.scene.time.addEvent({ delay: 15000, callback: this.monstersSpawners, callbackScope: this, loop: true });
+  }
+
+  monstersSpawners() {
     Object.keys(this.monsterLocation).forEach((key) => {
-      config.id = `monster-${key}`;
-      config.spawnerType = 'MONSTER';
-      spawner = new Spawner(
-        config,
-        this.monsterLocation[key],
-        this.addMonster.bind(this),
-        this.deleteMonster.bind(this),
-        this.monsterLocation.length
-      );
-      this.spawners[spawner.id] = spawner;
+      let monsterDead = true;
+      Object.keys(this.monsters).forEach((monster) => {
+        if (this.monsters[monster].id === `monster-${key}`) {
+          monsterDead = false
+        }
+      })
+
+      if (monsterDead) {
+        let monster = new MonsterModel(
+          this.monsterLocation[key].x, 
+          this.monsterLocation[key].y, 
+          10, 
+          `monster-${key}`, 
+          100, 
+          10
+        );
+
+        this.addMonster(monster)
+      }
     });
   }
 
@@ -75,8 +80,8 @@ class GameManager {
     this.scene.events.emit('spawnPlayer', this.playerLocation);
   }
 
-  addMonster(monsterId, monster) {
-    this.monsters[monsterId] = monster;
+  addMonster(monster) {
+    this.monsters[monster.id] = monster;
     this.scene.events.emit('monsterSpawn', monster)
   }
 
