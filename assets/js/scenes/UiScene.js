@@ -68,7 +68,6 @@ class UiScene extends Phaser.Scene {
 
   createBar() {
     this.hpBar = new Bar('health', this.gameScene, 105, 18, this.gameScene.player.maxHealth);
-    console.log(this.gameScene.player.maxHealth)
     this.manaBar = new Bar('mana', this.gameScene, 105, 42, this.gameScene.player.maxMana);
   }
 
@@ -88,8 +87,14 @@ class UiScene extends Phaser.Scene {
 
   setupEvents() {
     // listen for the updateScore event from the game scene
+    this.gameScene.events.on('playerBarRespawn', () => {
+      this.hpBar.respawn()
+      this.manaBar.respawn()
+    });
+
+
     this.gameScene.events.on('playerDamageHealthBar', (value) => {
-      this.hpBar.decrease(value)
+      this.hpBar.updateHealth(value)
     });
 
     this.gameScene.events.on('playerWasteManaBar', (value) => {

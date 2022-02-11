@@ -4,14 +4,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.x = x;
     this.y = y;
-    this.velocity = 600; // player velocity
+    this.velocity = 985; // player velocity
     this.health = health;
     this.maxHealth = maxHealth;
     this.maxMana = maxMana;
     this.mana = mana;
-
     this.magicRunning = false;
     this.stopMoving = false;
+    this.playerObject = null;
 
     this.selectedMagic = 'fire'
 
@@ -21,8 +21,27 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.anims.play(`mage_spawn`).anims.chain({ key: `idle_down`, repeat: -1 })
 
-    this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, function () {
-      this.loaded = true  
+    this.on(Phaser.Animations.Events.ANIMATION_COMPLETE,  (animation) => {
+      switch (animation.key) {
+        case 'mage_spawn':
+          this.loaded = true 
+          break;
+        case 'mage_death':
+          
+          this.health = this.maxHealth
+          this.setPosition(this.playerObject.x, this.playerObject.y)
+        
+          this.scene.events.emit('playerBarRespawn')
+
+          this.playerObject = null;
+          this.loaded = false
+          this.lastAnimation = `idle_down`;
+          this.lastFlipX = null;
+          
+          this.anims.play(`mage_spawn`, true)
+          this.setImmovable(false)
+          break;
+      }
     }, this);
     
 
@@ -143,6 +162,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.events.emit('playerDamageHealthBar', health)
   }
 
+
   handleBody() {
     if (this.body.velocity.x !== 0) {
       if (this.body.velocity.x > 0) {
@@ -175,6 +195,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       }
     }
   } 
+
+  respawn(playerObject) {
+    this.loaded = false;
+    this.body.setVelocity(0);
+    this.setImmovable()
+    this.playerObject = playerObject;
+    this.anims.play('mage_death', true)    
+  }
   
   
   update(cursors) {

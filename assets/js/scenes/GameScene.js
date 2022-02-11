@@ -24,7 +24,7 @@ class GameScene extends Phaser.Scene {
 
     if (this.monsters) {
       this.monsters.getChildren().forEach((monster) => {
-        monster.update(monster.x, monster.y)
+        monster.update(this.cursors, this.player, monster)
       })
     }
   }
@@ -39,7 +39,9 @@ class GameScene extends Phaser.Scene {
       classType: Phaser.Physics.Arcade.Sprite,
     });
     // create monster group
-    this.monsters = this.physics.add.group();
+    this.monsters = this.physics.add.group({
+      immovable: true,
+    });
     // create a chest group
     
   }
@@ -97,11 +99,12 @@ class GameScene extends Phaser.Scene {
       monsterObject.maxHealth,
     );
 
-    //add chest to chests group
-    this.monsters.add(monster);
     
     monster.setCollideWorldBounds(true);
-    monster.setImmovable(true)
+    monster.setImmovable(false)
+
+    //add chest to chests group
+    this.monsters.add(monster);
   }
   
 
@@ -118,8 +121,8 @@ class GameScene extends Phaser.Scene {
 
     this.physics.add.collider(this.player, this.monsters, this.playerEnemyOverlap, undefined, this)
 
+
     // collision monster
-    this.physics.add.collider(this.monsters, this.monsters);
     this.physics.add.collider(this.monsters, this.objectsLayer);
     this.physics.add.collider(this.monsters, this.deepCaveLayer);
 
@@ -155,7 +158,7 @@ class GameScene extends Phaser.Scene {
     // update our score
     this.score += chest.coins;
     // update scores
-    this.events.emit('updateScore', this.score)
+    // this.events.emit('updateScore', this.score)
     // make chest game Object inactive
     chest.makeInactive();
     // spawn a new chest
@@ -242,7 +245,19 @@ class GameScene extends Phaser.Scene {
     this.events.on('monsterSpawn', (monster) => {
       this.spawnMonster(monster)
     });
-    
+
+    this.events.on('respawnPlayer', (playerObject) => {
+      this.player.respawn(playerObject)
+    });
+
+    // this.events.on('respawnMonster', (monsterObject) => {
+    //   Object.keys(monsterObject).forEach((monster) => {
+    //     const enemy = monsterObject[monster].id
+    //     const {x, y} = (monsterObject[monster].x, monsterObject[monster].y)
+    //     enemy.setPosition(x, y)          
+    //   })
+    // }) 
+
     this.events.on('monsterRemoved', (monsterId) => {
       this.monsters.getChildren().forEach((monster) => {
         if (monster.id === monsterId) {

@@ -8,11 +8,22 @@ class Bar {
         this.x = x;
         this.y = y;
         this.value = valueMax;
+        this.valueMax = valueMax;
         this.p = 120 / 100;
 
         this.draw();
 
         scene.add.existing(this.bar);
+    }
+
+    respawn() {
+        this.value = this.valueMax;
+        this.draw();
+    }
+
+    updateHealth(health) {
+        this.value = health;
+        this.draw();
     }
 
     increase (amount)
