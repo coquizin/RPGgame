@@ -6,6 +6,7 @@ class UiScene extends Phaser.Scene {
   init() {
     // grab a reference to the game scene
     this.gameScene = this.scene.get('Game');
+  
   }
 
   create() {
@@ -14,26 +15,57 @@ class UiScene extends Phaser.Scene {
     this.createToll();
     this.createBar();
     this.setupEvents();
+    this.changeMagics();
 
+    // // this.uiBlocked = false;
 
-    this.waterButton = this.add.image( 483, 783,'water_magic_button').setScale(1.8)
-    this.waterButton.setInteractive()
+    // const waterBtn = this.add.image( 483, 783,'water_magic_button').setScale(1.8);
+    // const fireBtn = this.add.image( 548, 783,'fire_magic_button').setScale(1.8);
+    // const potionBtn = this.add.image( 609, 783,'potion').setScale(1.8);
 
-    this.fireButton = this.add.image( 548, 783,'fire_magic_button').setScale(1.8)
-    this.fireButton.setInteractive()
+    // waterBtn.setInteractive();
+    // fireBtn.setInteractive();
+    // potionBtn.setInteractive();
 
-    this.potionButton = this.add.image( 609, 783,'potion').setScale(1.8)
-    this.potionButton.setInteractive()
+    // waterBtn.on('pointerdown', () => { console.log('you change the magic for Water Magic'); });
+    // fireBtn.on('pointerdown', () => { console.log('you change the magic for fire Magic'); });
+    // potionBtn.on('pointerdown', () => { console.log('you are healfed!'); });
 
-  
+    // this.uiBlocked = false;
 
-    // this.input.on('pointerdown',function(pointer,gameObject,pointerdownX, pointerdownY){
-    //   gameObject.x= pointerdownX;
-    //   gameObject.y= pointerdownY;
-    // })
-   
+    // this.gameScene.pickItem = function(){
+
+    //   if(this.scene.uiBlocked)return;
+
+    //   this.scene.selectedItem = this;
+    //   this.alpha= 1;
+    // }
+
   }
-  
+
+  changeMagics(){    
+    const waterBtn = this.add.image( 483, 783,'water_magic_button').setScale(1.8);
+    const fireBtn = this.add.image( 548, 783,'fire_magic_button').setScale(1.8);
+    const potionBtn = this.add.image( 609, 783,'potion').setScale(1.8);
+
+    waterBtn.setInteractive();
+    fireBtn.setInteractive();
+    potionBtn.setInteractive();
+
+    waterBtn.on('pointerdown', () => { 
+      console.log('you change the magic for Water Magic'); 
+      this.gameScene.events.emit('changeMagics', 'water')
+    });
+    fireBtn.on('pointerdown', () => { 
+      console.log('you change the magic for fire Magic');
+      this.gameScene.events.emit('changeMagics', 'fire')
+     });
+    potionBtn.on('pointerdown', () => {
+       console.log('you are healfed!'); 
+    });
+  }
+
+
   createBar() {
     this.hpBar = new Bar('health', this.gameScene, 105, 18, this.gameScene.player.maxHealth);
     console.log(this.gameScene.player.maxHealth)

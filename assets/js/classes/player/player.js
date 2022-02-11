@@ -35,8 +35,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       }
     });
 
-    this.scene.events.on('magic_selected', (magic) => {
-      this.selectedMagic = magic
+    this.scene.events.on('changeMagics', (magicSelected) => {
+      this.selectedMagic = magicSelected
     });
 
     // this.anims.play({ key: 'down', repeat: -1 })
