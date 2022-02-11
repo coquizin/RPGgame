@@ -22,7 +22,7 @@ class Magic {
         this.mana = 1;
         break;
       case `fire`:
-        this.key = `water_magic`;
+        this.key = `fire_magic`;
         this.damage = 30;
         this.speed = 150;
         this.cooldown = 500;
@@ -42,7 +42,7 @@ class Magic {
         this.animation = `attack_up`
         this.x = this.x
         this.y = this.y - 0
-        this.magicAnimation = 'waterMagic_up'
+        this.magicAnimation = `${this.name}Magic_up`
         this.maxDistance = this.y - this.distance
         break
       case 'idle_down':
@@ -50,7 +50,7 @@ class Magic {
         this.animation = `attack_down`
         this.x = this.x
         this.y = this.y + 0
-        this.magicAnimation = 'waterMagic_down'
+        this.magicAnimation = `${this.name}Magic_down`
         this.maxDistance = this.y + this.distance
         break 
       case 'idle_side':
@@ -59,14 +59,14 @@ class Magic {
           this.animation = `attack_side`
           this.x = this.x - 0
           this.y = this.y
-          this.magicAnimation = 'waterMagic_side'
+          this.magicAnimation = `${this.name}Magic_side`
           this.maxDistance = this.x - this.distance
         } else {
           this.vector.x = 1
           this.animation = `attack_side`
           this.x = this.x + 0
           this.y = this.y
-          this.magicAnimation = 'waterMagic_side'
+          this.magicAnimation = `${this.name}Magic_side`
           this.maxDistance = this.x + this.distance
         }
         break

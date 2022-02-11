@@ -24,7 +24,7 @@ class GameScene extends Phaser.Scene {
 
     if (this.monsters) {
       this.monsters.getChildren().forEach((monster) => {
-        monster.update(this.cursors, this.player, monster)
+        monster.update(this.cursors, this.player, monster, this.monsters)
       })
     }
   }

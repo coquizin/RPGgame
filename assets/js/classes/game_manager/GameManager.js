@@ -79,41 +79,51 @@ class GameManager {
   setupSpawners() {
     this.monstersSpawners()
 
-    this.timedEvent = this.scene.time.addEvent({ delay: 10000000, callback: this.monstersSpawners, callbackScope: this, loop: true });
+    this.timedEvent = this.scene.time.addEvent({ delay: 100000000000000000, callback: this.monstersSpawners, callbackScope: this, loop: true });
   }
 
   monstersSpawners() {
-    // let monster = new MonsterModel(
-    //   this.monsterLocation[0].x, 
-    //   this.monsterLocation[0].y, 
-    //   10, 
-    //   `monster-${0}`, 
-    //   100, 
-    //   10
-    // );
-    // this.addMonster(monster)
-    Object.keys(this.monsterLocation).forEach((key) => {
-      let monsterDead = true;
+    let monster = new MonsterModel(
+      this.monsterLocation[2].x, 
+      this.monsterLocation[2].y, 
+      10, 
+      `monster-${2}`, 
+      100, 
+      10
+    );
+    this.addMonster(monster)
 
-      Object.keys(this.monsters).forEach((monster) => {
-        if (this.monsters[monster].id === `monster-${key}`) {
-          monsterDead = false
-        }
-      })
+     monster = new MonsterModel(
+      this.monsterLocation[3].x, 
+      this.monsterLocation[3].y, 
+      10, 
+      `monster-${3}`, 
+      100, 
+      10
+    );
+    this.addMonster(monster)
+    // Object.keys(this.monsterLocation).forEach((key) => {
+    //   let monsterDead = true;
 
-      if (monsterDead) {
-        let monster = new MonsterModel(
-          this.monsterLocation[key].x, 
-          this.monsterLocation[key].y, 
-          10, 
-          `monster-${key}`, 
-          100, 
-          10
-        );
+    //   Object.keys(this.monsters).forEach((monster) => {
+    //     if (this.monsters[monster].id === `monster-${key}`) {
+    //       monsterDead = false
+    //     }
+    //   })
 
-        this.addMonster(monster)
-      }
-    });
+    //   if (monsterDead) {
+    //     let monster = new MonsterModel(
+    //       this.monsterLocation[key].x, 
+    //       this.monsterLocation[key].y, 
+    //       10, 
+    //       `monster-${key}`, 
+    //       100, 
+    //       10
+    //     );
+
+    //     this.addMonster(monster)
+    //   }
+    // });
   }
 
   spawnPlayer() {
