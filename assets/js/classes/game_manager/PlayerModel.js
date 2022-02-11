@@ -14,4 +14,9 @@ class PlayerModel {
   loseHealth(damage) {
     this.health -= damage;
   }
+
+  respawn() {
+    this.health = this.maxHealth
+    this.spawnLocation = this.spawnLocation
+  }
 }

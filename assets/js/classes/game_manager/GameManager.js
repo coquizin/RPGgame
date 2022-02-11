@@ -52,17 +52,25 @@ class GameManager {
 
     this.scene.events.on('playerAttacked', ({player, monster}) => {
       if(this.player) {
+        // player lose Health
         this.player.loseHealth(monster.damage)
         player.updateHealth(this.player.health)
-      
-
+        
+        // player dies
         if (this.player.health <= 0) {
-          // this.player = null;
-          // player.destroy()
+          this.player.respawn()
+          this.scene.events.emit('respawnPlayer', this.player)
 
-          // this.deleteMonster(monster.id)
-          // this.scene.events.emit('monsterRemoved', monster.id)
-          //TODO: rewards from monsters
+          // respawn monsters after player die
+          setTimeout( () =>{
+            Object.keys(this.monsters).forEach((monster) => {
+              this.scene.events.emit('monsterRemoved',this.monsters[monster].id)
+            })
+            this.monsters= {}
+            this.setupSpawners()
+          }, 2300)
+      
+          
         }
       }
     })
@@ -71,12 +79,22 @@ class GameManager {
   setupSpawners() {
     this.monstersSpawners()
 
-    this.timedEvent = this.scene.time.addEvent({ delay: 15000, callback: this.monstersSpawners, callbackScope: this, loop: true });
+    this.timedEvent = this.scene.time.addEvent({ delay: 10000000, callback: this.monstersSpawners, callbackScope: this, loop: true });
   }
 
   monstersSpawners() {
+    // let monster = new MonsterModel(
+    //   this.monsterLocation[0].x, 
+    //   this.monsterLocation[0].y, 
+    //   10, 
+    //   `monster-${0}`, 
+    //   100, 
+    //   10
+    // );
+    // this.addMonster(monster)
     Object.keys(this.monsterLocation).forEach((key) => {
       let monsterDead = true;
+
       Object.keys(this.monsters).forEach((monster) => {
         if (this.monsters[monster].id === `monster-${key}`) {
           monsterDead = false
