@@ -175,6 +175,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite{
     //   }
     // })
     
+    
     if (Math.abs(distanceX) < this.range ||  Math.abs(distanceY) < this.range) {
       this.handleBody()
       if ((rotation >= 2.4) && (rotation <= 4) || (rotation <= -2.4) && (rotation >= -4)) {

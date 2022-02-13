@@ -17,10 +17,13 @@ class BootScene extends Phaser.Scene {
     // load magic animation
     this.load.aseprite('water_magic', 'assets/images/character/player/attacks/water_magic/water_magic.png', 'assets/images/character/player/attacks/water_magic/water_magic.json')
     this.load.aseprite('fire_magic', 'assets/images/character/player/attacks/fire_magic/fire_magic.png', 'assets/images/character/player/attacks/fire_magic/fire_magic.json')
+    this.load.aseprite('dark_magic', 'assets/images/character/player/attacks/dark_magic/dark_magic.png', 'assets/images/character/player/attacks/dark_magic/dark_magic.json')
     // load enemy carrot
     this.load.aseprite('carrot', 'assets/images/enemies/carrot_char.png', 'assets/images/enemies/carrot_char.json')
     // load enemy rat
     this.load.aseprite('rat', 'assets/images/enemies/rat.png', 'assets/images/enemies/rat.json');
+    // load quick bar
+    this.load.aseprite('quick_bar', 'assets/images/ui/quickBar.png', 'assets/images/ui/quickBar.json')
   };
 
   loadImages() {
@@ -33,7 +36,7 @@ class BootScene extends Phaser.Scene {
 
   
     this.load.image('Iventory', 'assets/images/ui/inventory.png');
-    this.load.image('Quick_tool', 'assets/images/ui/Quick_tool.png');
+    // this.load.image('Quick_tool', 'assets/images/ui/Quick_tool.png');
     this.load.image('moldura', 'assets/images/ui/moldura.png');
 
     this.load.image('heartFull', 'assets/images/ui/heartFull.png');
@@ -80,9 +83,11 @@ class BootScene extends Phaser.Scene {
   loadAnimations() {
     this.anims.createFromAseprite("mage");
     this.anims.createFromAseprite("water_magic");
+    this.anims.createFromAseprite("dark_magic");
     this.anims.createFromAseprite("fire_magic");
     this.anims.createFromAseprite("carrot");
     this.anims.createFromAseprite("rat");
+    this.anims.createFromAseprite("quick_bar");
   };
 
   create() {

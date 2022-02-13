@@ -44,12 +44,15 @@ class UiScene extends Phaser.Scene {
   }
 
   changeMagics(){    
-    const waterBtn = this.add.image( 483, 783,'water_magic_button').setScale(1.8);
-    const fireBtn = this.add.image( 548, 783,'fire_magic_button').setScale(1.8);
-    const potionBtn = this.add.image( 609, 783,'potion').setScale(1.8);
+    const waterBtn = this.add.sprite( 263, 783,'water_magic').setScale(1.8).setInteractive();
+    const fireBtn = this.add.sprite( 327, 783,'fire_magic').setScale(1.8).setInteractive();
+    const darkBtn = this.add.sprite(393, 783, 'dark_magic').setScale(1.8).setInteractive();
+    const potionBtn = this.add.image( 852, 783,'potion').setScale(1.8).setInteractive();
 
-    waterBtn.setInteractive();
-    fireBtn.setInteractive();
+    darkBtn.anims.play({key: 'DarkMagic_down', repeat: -1}, true)
+
+    waterBtn.anims.play({key: 'waterMagic_down', repeat: -1}, true)
+    fireBtn.anims.play({key: 'fireMagic_down', repeat: -1}, true);
     potionBtn.setInteractive();
 
     waterBtn.on('pointerdown', () => { 
@@ -57,6 +60,10 @@ class UiScene extends Phaser.Scene {
       this.gameScene.events.emit('changeMagics', 'water')
     });
     fireBtn.on('pointerdown', () => { 
+      console.log('you change the magic for fire Magic');
+      this.gameScene.events.emit('changeMagics', 'fire')
+     });
+     darkBtn.on('pointerdown', () => { 
       console.log('you change the magic for fire Magic');
       this.gameScene.events.emit('changeMagics', 'fire')
      });
@@ -75,8 +82,9 @@ class UiScene extends Phaser.Scene {
      this.molduraIcon = this.add.image(50,40,'moldura').setScale(1.5)
   }
 
- createToll(){
-    this.tollIcon = this.add.image(550,780,'Quick_tool').setScale(2)
+  createToll(){
+    const tollIcon = this.add.sprite(550,780,'quick_bar').setScale(2)
+    tollIcon.anims.play({key:'quickBar', repeat: -1}, true)
   }
   // setupUiElements() {
   //   // create the score text game object
