@@ -28,11 +28,12 @@ class Bar {
 
     increase (amount)
     {
-        this.value += amount;
-
-        if (this.value > 0)
-        {
-            this.value = 100;
+        if ( this.value < 100) {
+            if ( this.value + amount > 100) {
+                this.value = 100
+            } else {
+                this.value += amount
+            }
         }
 
         this.draw();

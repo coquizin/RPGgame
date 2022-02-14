@@ -49,26 +49,31 @@ class UiScene extends Phaser.Scene {
     const darkBtn = this.add.sprite(393, 783, 'dark_magic').setScale(1.8).setInteractive();
     const potionBtn = this.add.image( 852, 783,'potion').setScale(1.8).setInteractive();
 
-    darkBtn.anims.play({key: 'DarkMagic_down', repeat: -1}, true)
+    darkBtn.anims.play({key: 'darkMagic_down', repeat: -1}, true)
 
     waterBtn.anims.play({key: 'waterMagic_down', repeat: -1}, true)
     fireBtn.anims.play({key: 'fireMagic_down', repeat: -1}, true);
-    potionBtn.setInteractive();
 
     waterBtn.on('pointerdown', () => { 
       console.log('you change the magic for Water Magic'); 
       this.gameScene.events.emit('changeMagics', 'water')
     });
+
     fireBtn.on('pointerdown', () => { 
       console.log('you change the magic for fire Magic');
       this.gameScene.events.emit('changeMagics', 'fire')
-     });
+    });
+
      darkBtn.on('pointerdown', () => { 
       console.log('you change the magic for fire Magic');
-      this.gameScene.events.emit('changeMagics', 'fire')
-     });
+      this.gameScene.events.emit('changeMagics', 'dark')
+    });
+
     potionBtn.on('pointerdown', () => {
        console.log('you are healfed!'); 
+       const { hp } = new HpPotion(`small_hp_potion`)
+       this.hpBar.increase(hp)
+       this.gameScene.events.emit('playerHealth', hp)
     });
   }
 

@@ -58,6 +58,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       this.selectedMagic = magicSelected
     });
 
+    this.scene.events.on('playerHealth', (hp) => {
+     if (this.health < 100) {
+        if (this.health + hp > 100) {
+          this.health = 100
+        } else {
+          this.health += hp
+        }
+      }
+    });
+
     // this.anims.play({ key: 'down', repeat: -1 })
     // enable physics
     this.scene.physics.world.enable(this);

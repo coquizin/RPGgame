@@ -128,9 +128,9 @@
   "size": { "w": 102, "h": 95 },
   "scale": "1",
   "frameTags": [
-   { "name": "DarkMagic_up", "from": 0, "to": 4, "direction": "forward" },
-   { "name": "DarkMagic_side", "from": 5, "to": 9, "direction": "forward" },
-   { "name": "DarkMagic_down", "from": 10, "to": 14, "direction": "forward" }
+   { "name": "darkMagic_up", "from": 0, "to": 4, "direction": "forward" },
+   { "name": "darkMagic_side", "from": 5, "to": 9, "direction": "forward" },
+   { "name": "darkMagic_down", "from": 10, "to": 14, "direction": "forward" }
   ]
  }
 }

@@ -30,6 +30,15 @@ class Magic {
         this.distance = 48 * 100
         this.mana = 1;
         break;
+      case `dark`:
+        this.key = `dark_magic`;
+        this.damage = 30;
+        this.speed = 150;
+        this.cooldown = 500;
+        this.delay = 450;
+        this.distance = 48 * 100
+        this.mana = 1;
+        break;
     }
 
     this.setPosition()
