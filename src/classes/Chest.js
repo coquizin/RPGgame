@@ -1,8 +1,8 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser';
 
 export default class Chest extends Phaser.Physics.Arcade.Image {
   constructor(scene, x, y, key, frame) {
-    super(scene, x, y, key, frame)
+    super(scene, x, y, key, frame);
     this.scene = scene; // the scene this container will be added to
     this.coins = 10; // the amount of coin this chest contains
 

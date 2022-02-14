@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser';
 
 export default class UiButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, key, hoverKey, text, targetCallback) {
@@ -7,9 +7,9 @@ export default class UiButton extends Phaser.GameObjects.Container {
     this.y = y; // the y position of our container
     this.key = key; // the background image of our button
     this.scene = scene; // the scene this container will be added to
-    this.targetCallback = targetCallback // the call function that will be called when the player click the burron
-    this.hoverKey = hoverKey // the image that willl be displayed when the play hovers over the button
-    this.text = text // the text that will be displayed on the button
+    this.targetCallback = targetCallback; // the call function that will be called when the player click the burron
+    this.hoverKey = hoverKey; // the image that willl be displayed when the play hovers over the button
+    this.text = text; // the text that will be displayed on the button
 
     // create our Ui burron
     this.createButton();
@@ -18,16 +18,16 @@ export default class UiButton extends Phaser.GameObjects.Container {
   }
 
   createButton() {
-    // create button 
+    // create button
     this.button = this.scene.add.image(0, 0, 'button1').setScale(1.4).setInteractive();
 
     // create button text
-    this.buttonText = this.scene.add.text(0, 0, this.text, { fontSize: '26px', fill: '#fff'})
+    this.buttonText = this.scene.add.text(0, 0, this.text, { fontSize: '26px', fill: '#fff' });
     // center the button text inside the Ui button
-    Phaser.Display.Align.In.Center(this.buttonText, this.button)
+    Phaser.Display.Align.In.Center(this.buttonText, this.button);
 
     // add the two game objects to our container
-    this.add(this.button)
+    this.add(this.button);
     this.add(this.buttonText);
 
     // listen for events
@@ -44,7 +44,3 @@ export default class UiButton extends Phaser.GameObjects.Container {
     });
   }
 }
-
-
-
-   

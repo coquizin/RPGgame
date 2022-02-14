@@ -1,10 +1,13 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser';
+import GameManager from '../classes/GameManager/GameManager';
+import Player from '../classes/Player';
+import Monster from '../classes/Monster';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
   }
-  
+
   init() {
     this.scene.launch('Ui');
     this.score = 0;
@@ -13,64 +16,70 @@ export default class GameScene extends Phaser.Scene {
   create() {
     this.createMap();
     this.createAudio();
-    this.createChests();
-    this.createMagics();
-    this.createPlayer();
-    this.addCollision();
+    this.createGroups();
     this.createInput();
+    this.createGameManager();
   }
 
   update() {
-    this.player.update(this.cursors);
+    if (this.player) {
+      this.player.update(this.cursors);
+    }
+
+    if (this.monsters) {
+      for (const monster of this.monsters.getChildren()) {
+        monster.update(this.cursors, this.player, monster, this.monsters);
+      }
+    }
   }
 
   createAudio() {
-    this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.2})
+    this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.2 });
   }
 
-  createMagics(){
+  createGroups() {
+    // create magic group
     this.magics = this.physics.add.group({
-      classType: Phaser.Physics.Arcade.Sprite,
+      classType: Phaser.Physics.Arcade.Sprite
     });
-  }
-
-  createPlayer() {
-    this.player = new Player(this, 320, 32, 'mage', null);
-    this.player.setMagics(this.magics)
-  }
-
-  createEnemy() {
-    // const enemy = new Enemy(this, 320, 32, 'enemy', null);
-    // this.enemies.add(enemy);
-  }
-
-  createChests() {
+    // create monster group
+    this.monsters = this.physics.add.group({
+      immovable: true
+    });
     // create a chest group
-    this.chests = this.physics.add.group();
-    // create chest positions array
-    this.chestPosition = [[100, 100], [200, 200], [300, 300], [400, 400], [500, 500]];
-    // specify the max number of chest we can have
-    this.maxNumberOfChests = 3;
-    // spawn a chest
-    for (let index = 0; index < this.maxNumberOfChests; index++) {
-      this.spawnChest();
-    }
   }
 
+  createPlayer(playerObject) {
+    this.player = new Player(
+      this,
+      playerObject.x,
+      playerObject.y,
+      'mage',
+      playerObject.health,
+      playerObject.maxHealth,
+      playerObject.maxMana,
+      playerObject.mana
+    );
+    // this.player.setDepth(1);
+    this.player.setMagics(this.magics);
+  }
 
-  spawnChest() {
-    const location = this.chestPosition[Math.floor(Math.random() * this.chestPosition.length)]
+  spawnMonster(monsterObject) {
+    const monster = new Monster(
+      this,
+      monsterObject.x,
+      monsterObject.y,
+      'rat',
+      monsterObject.id,
+      monsterObject.health,
+      monsterObject.maxHealth
+    );
 
-    let chest = this.chests.getFirstDead();
-    if(!chest) {
-      const chest = new Chest(this, location[0], location[1], 'items', 0);
-      //add chest to chests group
-      this.chests.add(chest);
-    } 
-    else {
-      chest.setPosition(location[0], location[1]);
-      chest.makeActive();
-    }
+    monster.setCollideWorldBounds(true);
+    monster.setImmovable(false);
+
+    //add chest to chests group
+    this.monsters.add(monster);
   }
 
   createInput() {
@@ -78,61 +87,90 @@ export default class GameScene extends Phaser.Scene {
   }
 
   addCollision() {
-    //  colisao
-    this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
+    //  collision player
+    // this.physics.add.collider(this.player, this.monsters);
     this.physics.add.collider(this.player, this.objectsLayer);
     this.physics.add.collider(this.player, this.deepCaveLayer);
-    
 
-    this.physics.add.collider(this.magics, this.objectsLayer, this.handleMagicCollision, undefined, this);
-    this.physics.add.collider(this.magics, this.deepCaveLayer, this.handleMagicCollision, undefined, this);
+    this.physics.add.collider(this.player, this.monsters, this.playerEnemyOverlap, undefined, this);
+
+    // collision monster
+    this.physics.add.collider(this.monsters, this.objectsLayer);
+    this.physics.add.collider(this.monsters, this.deepCaveLayer);
+
+    // collision magic
+    this.physics.add.collider(
+      this.magics,
+      this.objectsLayer,
+      this.handleMagicCollision,
+      undefined,
+      this
+    );
+    this.physics.add.collider(
+      this.magics,
+      this.deepCaveLayer,
+      this.handleMagicCollision,
+      undefined,
+      this
+    );
+
+    this.physics.add.overlap(this.magics, this.monsters, this.magicEnemyOverlap, undefined, this);
+  }
+
+  playerEnemyOverlap(player, monster) {
+    const payload = { player, monster };
+    this.events.emit('playerAttacked', payload);
+  }
+
+  magicEnemyOverlap(magic, monster) {
+    const payload = { magic, monster };
+
+    magic.destroy();
+    this.events.emit('monsterAttacked', payload);
   }
 
   handleMagicCollision(object1) {
-    this.magics.killAndHide(object1)
-    this.events.emit('magic_collision', object1)
-  }
- 
-
-  collectChest(player, chest) {
-    // play sound
-    this.goldPickupAudio.play();
-    // update our score
-    this.score += chest.coins;
-    // update scores
-    this.events.emit('updateScore', this.score)
-    // make chest game Object inactive
-    chest.makeInactive();
-    // spawn a new chest
-    this.time.delayedCall(1000, this.spawnChest, [], this);
+    object1.destroy();
+    this.events.emit('magic_collision', object1);
   }
 
   createMap() {
     // create the tile map
-    this.map = this.make.tilemap({ key: 'cave' })
+    this.map = this.make.tilemap({ key: 'cave' });
+
     // add the tileset image to our map
 
     // this.map.addTilesetImage('chao2');
     // this.waterTile = this.map.addTilesetImage('agua1');
     // this.waterLayer = this.map.createLayer('agua', this.waterTile).setScale(2);
 
-    
-    const titles = []
-    // titles.push(this.map.addTilesetImage('tilesets_1'));
-    titles.push(this.map.addTilesetImage('cave_1'));
-    titles.push(this.map.addTilesetImage('cave_2'));
-
+    const titles = [
+      this.map.addTilesetImage('fullTiles'),
+      this.map.addTilesetImage('cave_1'),
+      this.map.addTilesetImage('cave_2')
+    ];
 
     // const backgroundLayer = this.map.createDynamicLayer('background', tilesBackground, 0, 0);
     // const groundLayer = this.map.createDynamicLayer('chao', tilesBackground, 0, 0);
     // const waterLayer = this.map.createDynamicLayer('agua', tilesWater, 0, 0);
     // const objectLayer = this.map.createDynamicLayer('objetos', titleObject, 0, 0);
 
-
-    this.backgroundLayer = this.map.createLayer('background_cave', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    this.deepCaveLayer = this.map.createLayer('deep_cave', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    this.groundLayer = this.map.createLayer('ground_cave', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    this.objectsLayer = this.map.createLayer('objects_cave', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
+    this.backgroundLayer = this.map
+      .createLayer('background_cave', titles, 0, 0)
+      .setCollisionByProperty({ collides: true })
+      .setScale(2);
+    this.deepCaveLayer = this.map
+      .createLayer('deep_cave', titles, 0, 0)
+      .setCollisionByProperty({ collides: true })
+      .setScale(2);
+    this.groundLayer = this.map
+      .createLayer('ground_cave', titles, 0, 0)
+      .setCollisionByProperty({ collides: true })
+      .setScale(2);
+    this.objectsLayer = this.map
+      .createLayer('objects_cave', titles, 0, 0)
+      .setCollisionByProperty({ collides: true })
+      .setScale(2);
     // const backgroundLayer = this.map.createLayer('background', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
     // const waterLayer = this.map.createLayer('agua', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
     // const groundLayer = this.map.createLayer('chao', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
@@ -142,9 +180,6 @@ export default class GameScene extends Phaser.Scene {
     // platformLayer.setCollisionByProperty({ collides: true });
 
     // this.tiles = this.ma);.addTilesetImage('tilesetCerto', 'tilesetCerto',16, 16, 0, 0)
-
-
-    
 
     // this.tiles = this.map.createDynamicLayer(`map`, layers, 0, 0)
     //create our background
@@ -175,6 +210,39 @@ export default class GameScene extends Phaser.Scene {
 
     // // limit the camera to the size of our map
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
+  }
 
+  createGameManager() {
+    this.events.on('spawnPlayer', (playerObject) => {
+      this.createPlayer(playerObject);
+      this.addCollision();
+    });
+
+    this.events.on('monsterSpawn', (monster) => {
+      this.spawnMonster(monster);
+    });
+
+    this.events.on('respawnPlayer', (playerObject) => {
+      this.player.respawn(playerObject);
+    });
+
+    // this.events.on('respawnMonster', (monsterObject) => {
+    //   Object.keys(monsterObject).forEach((monster) => {
+    //     const enemy = monsterObject[monster].id
+    //     const {x, y} = (monsterObject[monster].x, monsterObject[monster].y)
+    //     enemy.setPosition(x, y)
+    //   })
+    // })
+
+    this.events.on('monsterRemoved', (monsterId) => {
+      for (const monster of this.monsters.getChildren()) {
+        if (monster.id === monsterId) {
+          monster.destroyMonster();
+        }
+      }
+    });
+
+    this.gameManager = new GameManager(this, this.map.objects);
+    this.gameManager.setup();
   }
 }
