@@ -48,7 +48,7 @@ class Magic {
     switch (this.playerAnimation) {
       case 'idle_up':
         this.vector.y = -1
-        this.animation = `attack_up`
+        this.animation = `${this.name}Attack_up`
         this.x = this.x
         this.y = this.y - 0
         this.magicAnimation = `${this.name}Magic_up`
@@ -56,7 +56,7 @@ class Magic {
         break
       case 'idle_down':
         this.vector.y = 1
-        this.animation = `attack_down`
+        this.animation = `${this.name}Attack_down`
         this.x = this.x
         this.y = this.y + 0
         this.magicAnimation = `${this.name}Magic_down`
@@ -65,14 +65,14 @@ class Magic {
       case 'idle_side':
         if (this.flip) {
           this.vector.x = -1
-          this.animation = `attack_side`
+          this.animation = `${this.name}Attack_side`
           this.x = this.x - 0
           this.y = this.y
           this.magicAnimation = `${this.name}Magic_side`
           this.maxDistance = this.x - this.distance
         } else {
           this.vector.x = 1
-          this.animation = `attack_side`
+          this.animation = `${this.name}Attack_side`
           this.x = this.x + 0
           this.y = this.y
           this.magicAnimation = `${this.name}Magic_side`
