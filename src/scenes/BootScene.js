@@ -1,7 +1,9 @@
-class BootScene extends Phaser.Scene {
+import Phaser from 'phaser'
+
+export default class BootScene extends Phaser.Scene {
   constructor() {
     super('Boot');
-  };
+  }
 
   preload() {
     // load images
@@ -18,7 +20,7 @@ class BootScene extends Phaser.Scene {
     this.load.aseprite('water_magic', 'assets/images/character/player/attacks/water_magic/water_magic.png', 'assets/images/character/player/attacks/water_magic/water_magic.json')
     // load enemy
     this.load.aseprite('carrot', 'assets/images/enemies/carrot_char.png', 'assets/images/enemies/carrot_char.json')
-  };
+  }
 
   loadImages() {
     // load start ui images
@@ -47,17 +49,17 @@ class BootScene extends Phaser.Scene {
   loadTileMap() {
     // map with tiled in JSON form
     this.load.tilemapTiledJSON('cave', 'assets/images/maps/cave_farm.json');
-  };
+  }
 
   loadAnimations() {
     this.anims.createFromAseprite("mage");
     this.anims.createFromAseprite("water_magic");
     this.anims.createFromAseprite("carrot");
-  };
+  }
 
   create() {
-    console.log('starting game');
+    // console.log('starting game');
     this.loadAnimations();
     this.scene.start('Game');
-  };
-};
+  }
+}

@@ -1,0 +1,17 @@
+{
+	"name": "rpg-game",
+	"version": "0.1.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview"
+	},
+	"devDependencies": {
+		"vite": "^2.8.2"
+	},
+	"dependencies": {
+		"eslint": "^8.9.0",
+		"eslint-plugin-unicorn": "^40.1.0",
+		"phaser": "^3.55.2"
+	}
+}

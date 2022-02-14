@@ -1,12 +1,18 @@
-var config = {
+import Phaser from 'phaser'
+import BootScene from './scenes/BootScene'
+import TitleScene from './scenes/TitleScene'
+import UiScene from './scenes/UiScene'
+import GameScene from './scenes/GameScene'
+
+const config = {
   type: Phaser.AUTO,
   width: 1024,
   height: 840,
   scene: [
     BootScene,
     TitleScene,
-    GameScene,
     UiScene,
+    GameScene,
   ],
   physics: {
     default: 'arcade',
@@ -21,4 +27,4 @@ var config = {
   roundPixels: true
 };
 
-var game = new Phaser.Game(config);
+export default new Phaser.Game(config)

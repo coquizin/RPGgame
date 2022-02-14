@@ -1,4 +1,6 @@
-class GameScene extends Phaser.Scene {
+import Phaser from 'phaser'
+
+export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
   }
@@ -6,7 +8,7 @@ class GameScene extends Phaser.Scene {
   init() {
     this.scene.launch('Ui');
     this.score = 0;
-  };
+  }
 
   create() {
     this.createMap();
@@ -16,7 +18,7 @@ class GameScene extends Phaser.Scene {
     this.createPlayer();
     this.addCollision();
     this.createInput();
-  };
+  }
 
   update() {
     this.player.update(this.cursors);
@@ -50,9 +52,9 @@ class GameScene extends Phaser.Scene {
     // specify the max number of chest we can have
     this.maxNumberOfChests = 3;
     // spawn a chest
-    for (let i = 0; i < this.maxNumberOfChests; i++) {
+    for (let index = 0; index < this.maxNumberOfChests; index++) {
       this.spawnChest();
-    };
+    }
   }
 
 
@@ -68,7 +70,7 @@ class GameScene extends Phaser.Scene {
     else {
       chest.setPosition(location[0], location[1]);
       chest.makeActive();
-    };
+    }
   }
 
   createInput() {
@@ -86,9 +88,9 @@ class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.magics, this.deepCaveLayer, this.handleMagicCollision, undefined, this);
   }
 
-  handleMagicCollision(obj1) {
-    this.magics.killAndHide(obj1)
-    this.events.emit('magic_collision', obj1)
+  handleMagicCollision(object1) {
+    this.magics.killAndHide(object1)
+    this.events.emit('magic_collision', object1)
   }
  
 

@@ -1,4 +1,6 @@
-class Player extends Phaser.Physics.Arcade.Sprite {
+import Phaser from 'phaser'
+
+export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame)
     this.scene = scene; // the scene this container will be added to
@@ -12,7 +14,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.loaded = false
 
-    this.interval = null;
+    this.interval = undefined;
 
     this.anims.play(`mage_spawn`).anims.chain({ key: `idle_down`, repeat: -1 })
 
@@ -22,7 +24,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     
 
     this.lastAnimation = `idle_down`;
-    this.lastFlipX = null;
+    this.lastFlipX = undefined;
 
     this.scene.events.on('magic_collision', (magic) => {
       if (this.interval) {
@@ -177,7 +179,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       else if(cursors.down.isDown) {
         this.body.setVelocityY(this.velocity); 
       }
-    };
+    }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space)){
       this.throwMagic(this.selectedMagic)
@@ -185,5 +187,5 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
    
-  };
+  }
 }
