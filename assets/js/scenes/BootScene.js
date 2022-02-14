@@ -35,12 +35,9 @@ class BootScene extends Phaser.Scene {
 
 
   
-    this.load.image('Iventory', 'assets/images/ui/inventory.png');
+    this.load.image('iventory', 'assets/images/ui/inventory.png');
     // this.load.image('Quick_tool', 'assets/images/ui/Quick_tool.png');
     this.load.image('moldura', 'assets/images/ui/moldura.png');
-
-    this.load.image('heartFull', 'assets/images/ui/heartFull.png');
-    this.load.image('heartEmpyt', 'assets/images/ui/heartEmpyt.png');
 
 
    
@@ -52,8 +49,12 @@ class BootScene extends Phaser.Scene {
     
     //UI button of quick toll
     this.load.image('potion', 'assets/images/ui/potion.png');
+
+    this.load.image('bag', 'assets/images/ui/Bagpack.png');
+
+    this.load.image('select_ui', 'assets/images/ui/select_ui.png');
     this.load.image('water_magic_button', 'assets/images/ui/water_magic_button.png');
-    this.load.image('fire_magic_button', 'assets/images/ui/fire_magic_button.png');
+   
 
 
 

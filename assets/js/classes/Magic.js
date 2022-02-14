@@ -32,12 +32,12 @@ class Magic {
         break;
       case `dark`:
         this.key = `dark_magic`;
-        this.damage = 30;
+        this.damage = 100;
         this.speed = 150;
         this.cooldown = 500;
-        this.delay = 450;
+        this.delay = 500;
         this.distance = 48 * 100
-        this.mana = 1;
+        this.mana = 25;
         break;
     }
 

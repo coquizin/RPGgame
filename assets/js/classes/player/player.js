@@ -13,7 +13,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.stopMoving = false;
     this.playerObject = null;
 
-    this.selectedMagic = 'fire'
+    this.selectedMagic = 'water'
+    this.selectedBag = ''
 
     this.loaded = false
 
@@ -54,8 +55,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       }
     });
 
+ 
+
+    // this.scene.events.on('changeMagics', (selectedBag) => {
+    //   this.selectedBag = changeMagics
+
+    // });
+
     this.scene.events.on('changeMagics', (magicSelected) => {
       this.selectedMagic = magicSelected
+
     });
 
     this.scene.events.on('playerHealth', (hp) => {

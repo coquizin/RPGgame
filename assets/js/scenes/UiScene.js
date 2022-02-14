@@ -47,30 +47,55 @@ class UiScene extends Phaser.Scene {
     const waterBtn = this.add.sprite( 263, 783,'water_magic').setScale(1.8).setInteractive();
     const fireBtn = this.add.sprite( 327, 783,'fire_magic').setScale(1.8).setInteractive();
     const darkBtn = this.add.sprite(393, 783, 'dark_magic').setScale(1.8).setInteractive();
-    const potionBtn = this.add.image( 852, 783,'potion').setScale(1.8).setInteractive();
+    const potionBtn = this.add.image( 789, 783,'potion').setScale(1.8).setInteractive();
+    const bagBtn = this.add.image( 852, 783,'bag').setScale(2).setInteractive();
+
+  
+    const selectUI = this.add.image(262 , 782, 'select_ui').setScale(2)
+    // const selectUI2 = this.add.image(326 , 782, 'select_ui').setScale(2)
+    // const selectUI3 = this.add.image(392 , 782, 'select_ui').setScale(2)
 
     darkBtn.anims.play({key: 'darkMagic_down', repeat: -1}, true)
 
     waterBtn.anims.play({key: 'waterMagic_down', repeat: -1}, true)
     fireBtn.anims.play({key: 'fireMagic_down', repeat: -1}, true);
 
+
+
+
+
+    bagBtn.on('pointerdown', () => { 
+      console.log('you selected a bagPack'); 
+      selectUI.setPosition(851,782)
+      this.gameScene.events.emit('changeMagics', 'bag')
+    });
+    
     waterBtn.on('pointerdown', () => { 
       console.log('you change the magic for Water Magic'); 
+      selectUI.setPosition(262,782)
       this.gameScene.events.emit('changeMagics', 'water')
+    });
+
+    selectUI.on('pointerdown', () => { 
+      console.log('you selected magic'); 
+      this.gameScene.events.emit('changeMagics', 'selectUI')
     });
 
     fireBtn.on('pointerdown', () => { 
       console.log('you change the magic for fire Magic');
+      selectUI.setPosition(326,782)
       this.gameScene.events.emit('changeMagics', 'fire')
     });
 
      darkBtn.on('pointerdown', () => { 
       console.log('you change the magic for fire Magic');
+      selectUI.setPosition(392,782)
       this.gameScene.events.emit('changeMagics', 'dark')
     });
 
     potionBtn.on('pointerdown', () => {
        console.log('you are healfed!'); 
+       selectUI.setPosition(788,782)
        const { hp } = new HpPotion(`small_hp_potion`)
        this.hpBar.increase(hp)
        this.gameScene.events.emit('playerHealth', hp)
