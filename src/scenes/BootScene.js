@@ -63,8 +63,7 @@ export default class BootScene extends Phaser.Scene {
 
     // load the cave tileset image
     this.load.image('fullTiles', `assets/images/tilesets/fullTiles.png`);
-    this.load.image('cave_1', 'assets/images/caves/cave_1.png');
-    this.load.image('cave_2', 'assets/images/caves/cave_2.png');
+    this.load.image('collision', 'assets/images/tilesets/collision.png');
 
     //UI button of quick toll
     this.load.image('potion', 'assets/images/ui/potion.png');

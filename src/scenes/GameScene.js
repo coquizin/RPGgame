@@ -88,26 +88,17 @@ export default class GameScene extends Phaser.Scene {
   addCollision() {
     //  collision player
     // this.physics.add.collider(this.player, this.monsters);
-    this.physics.add.collider(this.player, this.objectsLayer);
-    this.physics.add.collider(this.player, this.deepCaveLayer);
+    this.physics.add.collider(this.player, this.collisionMap);
 
     this.physics.add.collider(this.player, this.monsters, this.playerEnemyOverlap, undefined, this);
 
     // collision monster
-    this.physics.add.collider(this.monsters, this.objectsLayer);
-    this.physics.add.collider(this.monsters, this.deepCaveLayer);
+    this.physics.add.collider(this.monsters, this.collisionMap);
 
     // collision magic
     this.physics.add.collider(
       this.magics,
-      this.objectsLayer,
-      this.handleMagicCollision,
-      undefined,
-      this
-    );
-    this.physics.add.collider(
-      this.magics,
-      this.deepCaveLayer,
+      this.collisionMap,
       this.handleMagicCollision,
       undefined,
       this
@@ -143,33 +134,21 @@ export default class GameScene extends Phaser.Scene {
     // this.waterTile = this.map.addTilesetImage('agua1');
     // this.waterLayer = this.map.createLayer('agua', this.waterTile).setScale(2);
 
-    const titles = [
-      this.map.addTilesetImage('fullTiles'),
-      this.map.addTilesetImage('cave_1'),
-      this.map.addTilesetImage('cave_2')
-    ];
+    const titles = [this.map.addTilesetImage('fullTiles'), this.map.addTilesetImage('collision')];
 
     // const backgroundLayer = this.map.createDynamicLayer('background', tilesBackground, 0, 0);
     // const groundLayer = this.map.createDynamicLayer('chao', tilesBackground, 0, 0);
     // const waterLayer = this.map.createDynamicLayer('agua', tilesWater, 0, 0);
     // const objectLayer = this.map.createDynamicLayer('objetos', titleObject, 0, 0);
 
-    this.backgroundLayer = this.map
-      .createLayer('background_cave', titles, 0, 0)
+    this.collisionMap = this.map
+      .createLayer('collision', titles, 0, 0)
       .setCollisionByProperty({ collides: true })
       .setScale(2);
-    this.deepCaveLayer = this.map
-      .createLayer('deep_cave', titles, 0, 0)
-      .setCollisionByProperty({ collides: true })
-      .setScale(2);
-    this.groundLayer = this.map
-      .createLayer('ground_cave', titles, 0, 0)
-      .setCollisionByProperty({ collides: true })
-      .setScale(2);
-    this.objectsLayer = this.map
-      .createLayer('objects_cave', titles, 0, 0)
-      .setCollisionByProperty({ collides: true })
-      .setScale(2);
+    this.backgroundLayer = this.map.createLayer('background', titles, 0, 0).setScale(2);
+    this.deepCaveLayer = this.map.createLayer('fringe', titles, 0, 0).setScale(2);
+    this.groundLayer = this.map.createLayer('Top', titles, 0, 0).setScale(2).setDepth(1);
+
     // const backgroundLayer = this.map.createLayer('background', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
     // const waterLayer = this.map.createLayer('agua', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
     // const groundLayer = this.map.createLayer('chao', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
