@@ -7,7 +7,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.x = x;
     this.y = y;
-    this.velocity = 980; // player velocity
+    this.velocity = 600; // player velocity
     this.health = health;
     this.maxHealth = maxHealth;
     this.maxMana = maxMana;
