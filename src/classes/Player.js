@@ -7,7 +7,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.x = x;
     this.y = y;
-    this.velocity = 980; // player velocity
+    this.velocity = 200; // player velocity
     this.health = health;
     this.maxHealth = maxHealth;
     this.maxMana = maxMana;
@@ -54,7 +54,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.lastAnimation = `idle_down`;
     this.lastFlipX = undefined;
 
-    this.scene.events.on('magic_collision', (magic) => {
+    this.scene.events.on('magic_collision', () => {
       if (this.interval) {
         clearInterval(this.interval);
       }
@@ -98,16 +98,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   throwMagic(name) {
+    console.log(this.mana);
     if (!this.magics) return;
     if (this.magicRunning) return;
-    if (this.mana <= 0) return;
 
     this.magicRunning = true;
     this.stopMoving = true;
     this.body.setVelocity(0);
     const {
       key,
-      damage,
+      // damage,
       speed,
       delay,
       cooldown,
@@ -117,8 +117,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       animation,
       magicAnimation,
       maxDistance,
-      mana
+      manaCost
     } = new MagicModel(name, this.x, this.y, this.lastAnimation, this.lastFlipX).get();
+    if (this.mana <= manaCost) {
+      this.magicRunning = false;
+      this.stopMoving = false;
+      return;
+    }
     const magic = this.magics.get(x, y, key);
     magic.setName(this.selectedMagic);
 
@@ -145,8 +150,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         magic.anims.play({ key: magicAnimation, repeat: -1 }, true);
 
         // mana decreased
-        this.scene.events.emit('playerWasteManaBar', mana);
-        this.mana -= mana;
+        this.scene.events.emit('playerWasteManaBar', manaCost);
+        this.mana -= manaCost;
 
         this.stopMoving = false;
         this.scene.time.delayedCall(cooldown - delay, () => {

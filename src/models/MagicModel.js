@@ -19,7 +19,7 @@ export default class MagicModel {
         this.cooldown = 400;
         this.delay = 450;
         this.distance = 48 * 10; // 10 eh o sqm/bloco
-        this.mana = 11;
+        this.manaCost = 11;
         break;
       case `fire`:
         this.key = `fire_magic`;
@@ -28,7 +28,7 @@ export default class MagicModel {
         this.cooldown = 500;
         this.delay = 450;
         this.distance = 48 * 100;
-        this.mana = 1;
+        this.manaCost = 1;
         break;
       case `dark`:
         this.key = `dark_magic`;
@@ -37,7 +37,7 @@ export default class MagicModel {
         this.cooldown = 500;
         this.delay = 500;
         this.distance = 48 * 100;
-        this.mana = 25;
+        this.manaCost = 25;
         break;
     }
 
@@ -92,7 +92,7 @@ export default class MagicModel {
       magicAnimation: this.magicAnimation,
       distance: this.distance,
       maxDistance: this.maxDistance,
-      mana: this.mana
+      manaCost: this.manaCost
     };
   }
 }

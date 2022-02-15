@@ -3,6 +3,7 @@ import BootScene from './scenes/BootScene';
 import TitleScene from './scenes/TitleScene';
 import UiScene from './scenes/UiScene';
 import GameScene from './scenes/GameScene';
+import { GridEngine } from 'grid-engine';
 
 const config = {
   type: Phaser.AUTO,
@@ -22,6 +23,15 @@ const config = {
   roundPixels: true,
   scale: {
     mode: Phaser.Scale.ScaleModes.FIT
+  },
+  plugins: {
+    scene: [
+      {
+        key: 'gridEngine',
+        plugin: GridEngine,
+        mapping: 'gridEngine'
+      }
+    ]
   }
 };
 

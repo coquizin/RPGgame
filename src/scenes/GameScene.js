@@ -74,7 +74,6 @@ export default class GameScene extends Phaser.Scene {
       monsterObject.health,
       monsterObject.maxHealth
     );
-
     monster.setCollideWorldBounds(true);
     monster.setImmovable(false);
 
