@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
 import HpPotionModel from '../models/HpPotionModel';
+import ManaPotionModel from '../models/ManaPotionModel';
+import SpeedPotionModel from '../models/SpeedPotionModel';
 import Bar from '../ui/Bar';
+import PieCooldown from '../ui/PieCooldown';
 
 export default class UiScene extends Phaser.Scene {
   constructor() {
@@ -51,8 +54,13 @@ export default class UiScene extends Phaser.Scene {
     const darkButton = this.add.sprite(393, 783, 'dark_magic').setScale(1.8).setInteractive();
     const potionButton = this.add.image(789, 783, 'potion').setScale(1.8).setInteractive();
     const bagButton = this.add.image(852, 783, 'bag').setScale(2).setInteractive();
-
+    const healthPotionButton = this.add
+      .image(723, 783, 'health_potion')
+      .setScale(2)
+      .setInteractive();
     const selectUI = this.add.image(262, 782, 'select_ui').setScale(2);
+    const manaPotionButton = this.add.image(657, 783, 'mana_potion').setScale(2).setInteractive();
+    const speedPotionButton = this.add.image(592, 783, 'speed_potion').setScale(2).setInteractive();
     // const selectUI2 = this.add.image(326 , 782, 'select_ui').setScale(2)
     // const selectUI3 = this.add.image(392 , 782, 'select_ui').setScale(2)
 
@@ -63,7 +71,7 @@ export default class UiScene extends Phaser.Scene {
 
     bagButton.on('pointerdown', () => {
       console.log('you selected a bagPack');
-      selectUI.setPosition(851, 782);
+      selectUI.setPosition(852, 782);
       this.gameScene.events.emit('changeMagics', 'bag');
     });
 
@@ -91,17 +99,42 @@ export default class UiScene extends Phaser.Scene {
     });
 
     potionButton.on('pointerdown', () => {
-      console.log('you are healfed!');
+      console.log('you are healfed 10 de life!');
       selectUI.setPosition(788, 782);
       const { hp } = new HpPotionModel(`small_hp_potion`);
       this.hpBar.increase(hp);
       this.gameScene.events.emit('playerHealth', hp);
+    });
+
+    healthPotionButton.on('pointerdown', () => {
+      console.log('you are healfed 50 de life!');
+      selectUI.setPosition(722, 782);
+      const { hp } = new HpPotionModel(`great_hp_potion`);
+      this.hpBar.increase(hp);
+      this.gameScene.events.emit('playerHealth', hp);
+    });
+
+    speedPotionButton.on('pointerdown', () => {
+      console.log('Mais rapido que o bary Alan');
+      selectUI.setPosition(590, 782);
+      const { speed } = new SpeedPotionModel(`ultimate_speed_potion`);
+      this.gameScene.events.emit('playerAddSpeed', speed);
+    });
+
+    manaPotionButton.on('pointerdown', () => {
+      console.log('you are add mana!');
+      selectUI.setPosition(656, 782);
+      const { mana } = new ManaPotionModel(`large_mana_potion`);
+      this.manaBar.increase(mana);
+      this.gameScene.events.emit('playerAddMana', mana);
     });
   }
 
   createBar() {
     this.hpBar = new Bar('health', this.gameScene, 105, 18, this.gameScene.player.maxHealth);
     this.manaBar = new Bar('mana', this.gameScene, 105, 42, this.gameScene.player.maxMana);
+
+    this.pie = new PieCooldown(this.gameScene, 155, 25);
   }
 
   createMoldura() {

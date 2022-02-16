@@ -7,7 +7,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.x = x;
     this.y = y;
-    this.velocity = 990; // player velocity
+    this.velocity = 300; // player velocity
     this.health = health;
     this.maxHealth = maxHealth;
     this.maxMana = maxMana;
@@ -74,6 +74,20 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       }
     });
 
+    this.scene.events.on('playerAddMana', (mana) => {
+      if (this.mana < 100) {
+        if (this.mana + mana > 100) {
+          this.mana = 100;
+        } else {
+          this.mana += mana;
+        }
+      }
+    });
+
+    this.scene.events.on('playerAddSpeed', (speed) => {
+      this.velocity += speed;
+      console.log(this.velocity);
+    });
     // this.anims.play({ key: 'down', repeat: -1 })
     // enable physics
     this.scene.physics.world.enable(this);
