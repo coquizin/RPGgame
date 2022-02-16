@@ -4,7 +4,7 @@ export default class Bar {
   constructor(name, scene, x, y, valueMax) {
     this.bar = new Phaser.GameObjects.Graphics(scene);
     this.bar.setScrollFactor(0, 0);
-
+    this.bar.setDepth(10);
     this.name = name;
     this.x = x;
     this.y = y;

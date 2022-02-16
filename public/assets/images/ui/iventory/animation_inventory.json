@@ -1,0 +1,94 @@
+{ "frames": {
+   "0": {
+    "frame": { "x": 1, "y": 1, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "1": {
+    "frame": { "x": 379, "y": 1, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "2": {
+    "frame": { "x": 757, "y": 1, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "3": {
+    "frame": { "x": 1, "y": 258, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "4": {
+    "frame": { "x": 379, "y": 258, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "5": {
+    "frame": { "x": 757, "y": 258, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "6": {
+    "frame": { "x": 1, "y": 515, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "7": {
+    "frame": { "x": 379, "y": 515, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "8": {
+    "frame": { "x": 757, "y": 515, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   },
+   "9": {
+    "frame": { "x": 379, "y": 258, "w": 377, "h": 256 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 53, "y": 1, "w": 375, "h": 254 },
+    "sourceSize": { "w": 480, "h": 270 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.25-x64",
+  "image": "animation_inventory.png",
+  "format": "RGBA8888",
+  "size": { "w": 1134, "h": 771 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "inventory_animation", "from": 0, "to": 9, "direction": "forward" }
+  ]
+ }
+}
