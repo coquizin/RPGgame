@@ -67,6 +67,9 @@ export default class BootScene extends Phaser.Scene {
 
     //UI button of quick toll
     this.load.image('potion', 'assets/images/ui/potion.png');
+    this.load.image('health_potion', 'assets/images/ui/health_potion.png');
+    this.load.image('move_potion', 'assets/images/ui/move_potion.png');
+    this.load.image('mana_potion', 'assets/images/ui/mana_potion.png');
 
     this.load.image('bag', 'assets/images/ui/Bagpack.png');
 
