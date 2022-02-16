@@ -482,6 +482,13 @@
   dependencies:
     "type-fest" "^0.20.2"
 
+"grid-engine@^2.12.0":
+  "integrity" "sha512-eOLCUwMv7F4A8dQi/FhDyCSNq3lUrR7pQF8LXUWDgo+PxT3m6FChcIaw8G5rdNEEFMZ3/5JTw5F125YliMra4A=="
+  "resolved" "https://registry.npmjs.org/grid-engine/-/grid-engine-2.12.0.tgz"
+  "version" "2.12.0"
+  dependencies:
+    "rxjs" "^7.3.1"
+
 "has-flag@^3.0.0":
   "integrity" "sha1-tdRU3CGZriJWmfNGfloH87lVuv0="
   "resolved" "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz"
@@ -770,7 +777,7 @@
     "process" "^0.11.1"
     "util" "^0.10.3"
 
-"phaser@^3.55.2":
+"phaser@^3.55.2", "phaser@~3.55.2":
   "integrity" "sha512-amKXsbb2Ht29dGPKvt1edq3yGGYKtq8373GpJYGKPNPnneYY6MtVTOgjHDuZwtmUyK4v86FugkT3hzW/N4tjxQ=="
   "resolved" "https://registry.npmjs.org/phaser/-/phaser-3.55.2.tgz"
   "version" "3.55.2"
@@ -881,6 +888,13 @@
   optionalDependencies:
     "fsevents" "~2.3.2"
 
+"rxjs@^7.3.1":
+  "integrity" "sha512-h5M3Hk78r6wAheJF0a5YahB1yRQKCsZ4MsGdZ5O9ETbVtjPcScGfrMmoOq7EBsCRzd4BDkvDJ7ogP8Sz5tTFiQ=="
+  "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-7.5.4.tgz"
+  "version" "7.5.4"
+  dependencies:
+    "tslib" "^2.1.0"
+
 "safe-regex@^2.1.1":
   "integrity" "sha512-rx+x8AMzKb5Q5lQ95Zoi6ZbJqwCLkqi3XuJXp5P3rT8OEc6sZCJG5AE5dU3lsgRr/F4Bs31jSlVN+j5KrsGu9A=="
   "resolved" "https://registry.npmjs.org/safe-regex/-/safe-regex-2.1.1.tgz"
@@ -985,6 +999,11 @@
   "integrity" "sha1-f17oI66AUgfACvLfSoTsP8+lcLQ="
   "resolved" "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz"
   "version" "0.2.0"
+
+"tslib@^2.1.0":
+  "integrity" "sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz"
+  "version" "2.3.1"
 
 "type-check@^0.4.0", "type-check@~0.4.0":
   "integrity" "sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew=="
