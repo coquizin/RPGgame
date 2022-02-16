@@ -76,7 +76,8 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('select_ui', 'assets/images/ui/select_ui.png');
     this.load.image('water_magic_button', 'assets/images/ui/water_magic_button.png');
 
-    // pinto
+    // load coins
+    this.load.image('coin', 'assets/images/ui/coin.png');
   }
 
   loadSpriteSheets() {
