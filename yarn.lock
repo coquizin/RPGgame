@@ -482,6 +482,16 @@
   dependencies:
     "type-fest" "^0.20.2"
 
+<<<<<<< HEAD
+"grid-engine@^2.12.0":
+  "integrity" "sha512-eOLCUwMv7F4A8dQi/FhDyCSNq3lUrR7pQF8LXUWDgo+PxT3m6FChcIaw8G5rdNEEFMZ3/5JTw5F125YliMra4A=="
+  "resolved" "https://registry.npmjs.org/grid-engine/-/grid-engine-2.12.0.tgz"
+  "version" "2.12.0"
+  dependencies:
+    "rxjs" "^7.3.1"
+
+=======
+>>>>>>> e6794f52b41c7cb1901e6d6f35f6985bf894e022
 "has-flag@^3.0.0":
   "integrity" "sha1-tdRU3CGZriJWmfNGfloH87lVuv0="
   "resolved" "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz"
@@ -770,7 +780,11 @@
     "process" "^0.11.1"
     "util" "^0.10.3"
 
+<<<<<<< HEAD
+"phaser@^3.55.2", "phaser@~3.55.2":
+=======
 "phaser@^3.55.2":
+>>>>>>> e6794f52b41c7cb1901e6d6f35f6985bf894e022
   "integrity" "sha512-amKXsbb2Ht29dGPKvt1edq3yGGYKtq8373GpJYGKPNPnneYY6MtVTOgjHDuZwtmUyK4v86FugkT3hzW/N4tjxQ=="
   "resolved" "https://registry.npmjs.org/phaser/-/phaser-3.55.2.tgz"
   "version" "3.55.2"
@@ -881,6 +895,14 @@
   optionalDependencies:
     "fsevents" "~2.3.2"
 
+<<<<<<< HEAD
+"rxjs@^7.3.1":
+  "integrity" "sha512-h5M3Hk78r6wAheJF0a5YahB1yRQKCsZ4MsGdZ5O9ETbVtjPcScGfrMmoOq7EBsCRzd4BDkvDJ7ogP8Sz5tTFiQ=="
+  "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-7.5.4.tgz"
+  "version" "7.5.4"
+  dependencies:
+    "tslib" "^2.1.0"
+
 "safe-regex@^2.1.1":
   "integrity" "sha512-rx+x8AMzKb5Q5lQ95Zoi6ZbJqwCLkqi3XuJXp5P3rT8OEc6sZCJG5AE5dU3lsgRr/F4Bs31jSlVN+j5KrsGu9A=="
   "resolved" "https://registry.npmjs.org/safe-regex/-/safe-regex-2.1.1.tgz"
@@ -935,6 +957,62 @@
   "resolved" "https://registry.npmjs.org/spdx-expression-parse/-/spdx-expression-parse-3.0.1.tgz"
   "version" "3.0.1"
   dependencies:
+=======
+"safe-regex@^2.1.1":
+  "integrity" "sha512-rx+x8AMzKb5Q5lQ95Zoi6ZbJqwCLkqi3XuJXp5P3rT8OEc6sZCJG5AE5dU3lsgRr/F4Bs31jSlVN+j5KrsGu9A=="
+  "resolved" "https://registry.npmjs.org/safe-regex/-/safe-regex-2.1.1.tgz"
+  "version" "2.1.1"
+  dependencies:
+    "regexp-tree" "~0.1.1"
+
+"semver@^7.3.5":
+  "integrity" "sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ=="
+  "resolved" "https://registry.npmjs.org/semver/-/semver-7.3.5.tgz"
+  "version" "7.3.5"
+  dependencies:
+    "lru-cache" "^6.0.0"
+
+"semver@2 || 3 || 4 || 5":
+  "integrity" "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ=="
+  "resolved" "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz"
+  "version" "5.7.1"
+
+"shebang-command@^2.0.0":
+  "integrity" "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA=="
+  "resolved" "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "shebang-regex" "^3.0.0"
+
+"shebang-regex@^3.0.0":
+  "integrity" "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A=="
+  "resolved" "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz"
+  "version" "3.0.0"
+
+"source-map-js@^1.0.2":
+  "integrity" "sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw=="
+  "resolved" "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz"
+  "version" "1.0.2"
+
+"spdx-correct@^3.0.0":
+  "integrity" "sha512-cOYcUWwhCuHCXi49RhFRCyJEK3iPj1Ziz9DpViV3tbZOwXD49QzIN3MpOLJNxh2qwq2lJJZaKMVw9qNi4jTC0w=="
+  "resolved" "https://registry.npmjs.org/spdx-correct/-/spdx-correct-3.1.1.tgz"
+  "version" "3.1.1"
+  dependencies:
+    "spdx-expression-parse" "^3.0.0"
+    "spdx-license-ids" "^3.0.0"
+
+"spdx-exceptions@^2.1.0":
+  "integrity" "sha512-/tTrYOC7PPI1nUAgx34hUpqXuyJG+DTHJTnIULG4rDygi4xu/tfgmq1e1cIRwRzwZgo4NLySi+ricLkZkw4i5A=="
+  "resolved" "https://registry.npmjs.org/spdx-exceptions/-/spdx-exceptions-2.3.0.tgz"
+  "version" "2.3.0"
+
+"spdx-expression-parse@^3.0.0":
+  "integrity" "sha512-cbqHunsQWnJNE6KhVSMsMeH5H/L9EpymbzqTQ3uLwNCLZ1Q481oWaofqH7nO6V07xlXwY6PhQdQ2IedWx/ZK4Q=="
+  "resolved" "https://registry.npmjs.org/spdx-expression-parse/-/spdx-expression-parse-3.0.1.tgz"
+  "version" "3.0.1"
+  dependencies:
+>>>>>>> e6794f52b41c7cb1901e6d6f35f6985bf894e022
     "spdx-exceptions" "^2.1.0"
     "spdx-license-ids" "^3.0.0"
 
@@ -986,6 +1064,14 @@
   "resolved" "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz"
   "version" "0.2.0"
 
+<<<<<<< HEAD
+"tslib@^2.1.0":
+  "integrity" "sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz"
+  "version" "2.3.1"
+
+=======
+>>>>>>> e6794f52b41c7cb1901e6d6f35f6985bf894e022
 "type-check@^0.4.0", "type-check@~0.4.0":
   "integrity" "sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew=="
   "resolved" "https://registry.npmjs.org/type-check/-/type-check-0.4.0.tgz"

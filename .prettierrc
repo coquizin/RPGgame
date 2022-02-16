@@ -9,5 +9,11 @@
   "trailingComma": "none",
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "prettier/prettier": [
+    "error",
+    {
+      "endOfLine": "auto"
+    }
+  ]
 }
