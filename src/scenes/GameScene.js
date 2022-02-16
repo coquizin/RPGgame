@@ -24,13 +24,20 @@ export default class GameScene extends Phaser.Scene {
   update() {
     if (this.player) {
       this.player.update(this.cursors);
+      this.playerRect = new Phaser.Geom.Rectangle(this.player.x, this.player.y, 100, 100);
     }
 
     if (this.monsters) {
       for (const monster of this.monsters.getChildren()) {
         monster.update(this.cursors, this.player, monster, this.monsters);
+        this.monsterRect = new Phaser.Geom.Rectangle(monster.x, monster.y, 100, 100);
       }
     }
+
+    if (Phaser.Geom.Intersects.RectangleToRectangle(this.playerRect, this.monsterRect)) {
+      console.log('eu te amo tiao');
+    }
+    // console.log(this.playerRect);
   }
 
   createAudio() {
@@ -76,7 +83,6 @@ export default class GameScene extends Phaser.Scene {
     );
     monster.setCollideWorldBounds(true);
     monster.setImmovable(false);
-
     //add chest to chests group
     this.monsters.add(monster);
   }
@@ -129,52 +135,17 @@ export default class GameScene extends Phaser.Scene {
     this.map = this.make.tilemap({ key: 'cave' });
 
     // add the tileset image to our map
-
-    // this.map.addTilesetImage('chao2');
-    // this.waterTile = this.map.addTilesetImage('agua1');
-    // this.waterLayer = this.map.createLayer('agua', this.waterTile).setScale(2);
-
-    const titles = [this.map.addTilesetImage('fullTiles'), this.map.addTilesetImage('collision')];
-
-    // const backgroundLayer = this.map.createDynamicLayer('background', tilesBackground, 0, 0);
-    // const groundLayer = this.map.createDynamicLayer('chao', tilesBackground, 0, 0);
-    // const waterLayer = this.map.createDynamicLayer('agua', tilesWater, 0, 0);
-    // const objectLayer = this.map.createDynamicLayer('objetos', titleObject, 0, 0);
+    const tiles = [this.map.addTilesetImage('fullTiles')];
 
     this.collisionMap = this.map
-      .createLayer('collision', titles, 0, 0)
+      .createLayer('collision', tiles, 0, 0)
       .setCollisionByProperty({ collides: true })
       .setScale(2);
-    this.backgroundLayer = this.map.createLayer('background', titles, 0, 0).setScale(2);
-    this.deepCaveLayer = this.map.createLayer('fringe', titles, 0, 0).setScale(2);
-    this.groundLayer = this.map.createLayer('Top', titles, 0, 0).setScale(2).setDepth(1);
-
-    // const backgroundLayer = this.map.createLayer('background', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    // const waterLayer = this.map.createLayer('agua', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    // const groundLayer = this.map.createLayer('chao', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-    // const objectLayer = this.map.createLayer('objetos', titles, 0, 0).setCollisionByProperty({ collides: true }).setScale(2);
-
-    // declare the collisions
-    // platformLayer.setCollisionByProperty({ collides: true });
-
-    // this.tiles = this.ma);.addTilesetImage('tilesetCerto', 'tilesetCerto',16, 16, 0, 0)
-
-    // this.tiles = this.map.createDynamicLayer(`map`, layers, 0, 0)
-    //create our background
-    // this.backgroundLayer = this.map.createLayer('Ground', this.tiles).setScale(2);
-    // this.objectsLayer = this.map.createLayer('objects', this.tiles).setScale(2);
-
-    // this.waterLayer.setCollisionByProperty({collides : true})
-    // this.objectsLayer.setCollisionByProperty({collides : true})
+    this.backgroundLayer = this.map.createLayer('background', tiles, 0, 0).setScale(2);
+    this.fringeLayer = this.map.createLayer('fringe', tiles, 0, 0).setScale(2);
+    this.topLayer = this.map.createLayer('Top', tiles, 0, 0).setScale(2).setDepth(1);
 
     // debug collider
-    // const debugGraphics = this.add.graphics().setAlpha(0.7)
-    // this.objectsLayer.renderDebug(debugGraphics, {
-    //   titleColor: null,
-    //   colldingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-    // })
-
     // const debugGraphics = this.add.graphics().setAlpha(0.7)
     // this.objectsLayer.renderDebug(debugGraphics, {
     //   titleColor: null,

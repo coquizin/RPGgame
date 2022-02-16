@@ -35,6 +35,16 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     this.createHealthBar();
 
     this.setOrigin(0);
+    this.setBodySize(30, 30);
+  }
+
+  setNormalHit() {
+    this.setBodySize(30, 30);
+  }
+
+  setRangeHit() {
+    this.setCircle(40);
+    this.setOffset(-20, -20);
   }
 
   update(cursors, player, monster, monsters) {
@@ -130,6 +140,13 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
     const distanceX = player.x - this.x;
     const distanceY = player.y - this.y;
+
+    // if (Math.abs(distanceX) < 200 && Math.abs(distanceY) < 200) {
+    //   console.log('a');
+    //   this.setRangeHit();
+    // } else {
+    //   this.setNormalHit();
+    // }
 
     const rotation = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
     // console.log(rotation)

@@ -7,7 +7,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene; // the scene this container will be added to
     this.x = x;
     this.y = y;
-    this.velocity = 990; // player velocity
+    this.velocity = 600; // player velocity
     this.health = health;
     this.maxHealth = maxHealth;
     this.maxMana = maxMana;
@@ -34,6 +34,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             break;
           case 'mage_death':
             this.health = this.maxHealth;
+            this.mana = this.maxMana;
             this.setPosition(this.playerObject.x, this.playerObject.y);
 
             this.scene.events.emit('playerBarRespawn');
@@ -77,20 +78,23 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     // this.anims.play({ key: 'down', repeat: -1 })
     // enable physics
     this.scene.physics.world.enable(this);
+
     // set immable if another object collides with our player
     this.setImmovable(false);
-    // scale oyr player
-    this.setScale(2);
 
-    this.setSize(36);
+    // scale our player
+    this.setScale(2);
+    this.setBodySize(36, 36);
+    this.setOffset(6, 9);
+
     // colide with world bounds
     this.body.setCollideWorldBounds(true);
+
     // add the to our existing scene
     this.scene.add.existing(this);
+
     // have the caramera following the player
     this.scene.cameras.main.startFollow(this);
-
-    // this.createHealthBar();
   }
 
   setMagics(magics) {
@@ -223,6 +227,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       if (this.anims.isPlaying) return;
 
       if (this.body.velocity.x === 0 && this.body.velocity.y === 0 && !this.anims.isPlaying) {
+        // if (this.lastAnimation === '')
+
         this.anims.play({ key: this.lastAnimation, repeat: -1 }, true);
         this.setFlipX(this.lastFlipX);
       } else {

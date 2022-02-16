@@ -17,6 +17,10 @@ export default class PlayerModel {
 
   respawn() {
     this.health = this.maxHealth;
-    this.spawnLocation = this.spawnLocation;
+    this.mana = this.maxMana;
+  }
+
+  updateGold(gold) {
+    this.gold += gold;
   }
 }

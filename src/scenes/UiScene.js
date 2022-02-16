@@ -15,34 +15,11 @@ export default class UiScene extends Phaser.Scene {
   create() {
     // this.setupUiElements();
     this.createMoldura();
+    this.createCoins();
     this.createToll();
     this.createBar();
     this.setupEvents();
     this.changeMagics();
-
-    // // this.uiBlocked = false;
-
-    // const waterBtn = this.add.image( 483, 783,'water_magic_button').setScale(1.8);
-    // const fireBtn = this.add.image( 548, 783,'fire_magic_button').setScale(1.8);
-    // const potionBtn = this.add.image( 609, 783,'potion').setScale(1.8);
-
-    // waterBtn.setInteractive();
-    // fireBtn.setInteractive();
-    // potionBtn.setInteractive();
-
-    // waterBtn.on('pointerdown', () => { console.log('you change the magic for Water Magic'); });
-    // fireBtn.on('pointerdown', () => { console.log('you change the magic for fire Magic'); });
-    // potionBtn.on('pointerdown', () => { console.log('you are healfed!'); });
-
-    // this.uiBlocked = false;
-
-    // this.gameScene.pickItem = function(){
-
-    //   if(this.scene.uiBlocked)return;
-
-    //   this.scene.selectedItem = this;
-    //   this.alpha= 1;
-    // }
   }
 
   changeMagics() {
@@ -104,6 +81,11 @@ export default class UiScene extends Phaser.Scene {
     this.manaBar = new Bar('mana', this.gameScene, 105, 42, this.gameScene.player.maxMana);
   }
 
+  createCoins() {
+    this.scoreText = this.add.text(130, 75, 'Coins: 0', { fontSize: '16px', fill: '#fff' });
+    this.coinIcon = this.add.image(115, 80, 'coin').setScale(1.5);
+  }
+
   createMoldura() {
     this.molduraIcon = this.add.image(50, 40, 'moldura').setScale(1.5);
   }
@@ -132,6 +114,10 @@ export default class UiScene extends Phaser.Scene {
 
     this.gameScene.events.on('playerWasteManaBar', (value) => {
       this.manaBar.decrease(value);
+    });
+
+    this.gameScene.events.on('updateScore', (score) => {
+      this.scoreText.setText(`Coins: ${score}`);
     });
   }
 }

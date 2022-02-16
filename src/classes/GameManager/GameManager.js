@@ -40,15 +40,20 @@ export default class GameManager {
   setupEventListener() {
     this.scene.events.on('monsterAttacked', ({ magic, monster }) => {
       const { damage } = new MagicModel(magic.name).get();
+      const gold = this.monsters[monster.id].gold;
 
       if (this.monsters[monster.id]) {
         this.monsters[monster.id].loseHealth(damage);
         monster.updateHealth(this.monsters[monster.id].health);
         // check monster health
         if (this.monsters[monster.id].health <= 0) {
+          // remove monster
           this.deleteMonster(monster.id);
           this.scene.events.emit('monsterRemoved', monster.id);
+
           //TODO: rewards from monsters
+          this.player.updateGold(gold);
+          this.scene.events.emit('updateScore', this.player.gold);
         }
       }
     });
@@ -89,15 +94,15 @@ export default class GameManager {
   }
 
   monstersSpawners() {
-    // let monster = new MonsterModel(
-    //   this.monsterLocation[2].x,
-    //   this.monsterLocation[2].y,
-    //   10,
-    //   `monster-${2}`,
-    //   100,
-    //   10
-    // );
-    // this.addMonster(monster);
+    let monster = new MonsterModel(
+      this.monsterLocation[2].x,
+      this.monsterLocation[2].y,
+      10,
+      `monster-${2}`,
+      100,
+      10
+    );
+    this.addMonster(monster);
 
     // monster = new MonsterModel(
     //   this.monsterLocation[3].x,
@@ -108,28 +113,28 @@ export default class GameManager {
     //   10
     // );
     // this.addMonster(monster);
-    for (const key of Object.keys(this.monsterLocation)) {
-      let monsterDead = true;
+    // for (const key of Object.keys(this.monsterLocation)) {
+    //   let monsterDead = true;
 
-      for (const monster of Object.keys(this.monsters)) {
-        if (this.monsters[monster].id === `monster-${key}`) {
-          monsterDead = false;
-        }
-      }
+    //   for (const monster of Object.keys(this.monsters)) {
+    //     if (this.monsters[monster].id === `monster-${key}`) {
+    //       monsterDead = false;
+    //     }
+    //   }
 
-      if (monsterDead) {
-        let monster = new MonsterModel(
-          this.monsterLocation[key].x,
-          this.monsterLocation[key].y,
-          10,
-          `monster-${key}`,
-          100,
-          10
-        );
+    //   if (monsterDead) {
+    //     let monster = new MonsterModel(
+    //       this.monsterLocation[key].x,
+    //       this.monsterLocation[key].y,
+    //       10,
+    //       `monster-${key}`,
+    //       100,
+    //       10
+    //     );
 
-        this.addMonster(monster);
-      }
-    }
+    //     this.addMonster(monster);
+    //   }
+    // }
   }
 
   spawnPlayer() {
