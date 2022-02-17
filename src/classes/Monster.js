@@ -19,11 +19,12 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
       x: 0,
       y: 0
     };
+    this.monsterAttacking = false;
 
     this.lastDirection = `None`;
     this.lastTilePosition = { x: -1, y: -1 };
 
-    this.lastAnimation = `rat_idle_down`;
+    this.lastAnimation = `down`;
     this.lastFlipX = undefined;
 
     this.anims.play({ key: `${key}_idle_down`, repeat: -1 }, true);
@@ -63,14 +64,20 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     if (this.body.velocity.x !== 0) {
       if (this.body.velocity.x > 0) {
         this.anims.play('rat_move_side', true);
+        this.lastAnimation = 'side';
+        this.lastFlipX = false;
       } else {
         this.anims.play('rat_move_side', true);
+        this.lastAnimation = 'side';
+        this.lastFlipX = true;
       }
     } else if (this.body.velocity.y !== 0) {
       if (this.body.velocity.y > 0) {
         this.anims.play('rat_move_down', true);
+        this.lastAnimation = 'down';
       } else {
         this.anims.play('rat_move_up', true);
+        this.lastAnimation = 'up';
       }
     } else {
       this.setVelocity(0);
@@ -127,45 +134,59 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
   }
 
   monsterAttack(player, monster) {
-    const playerRect = new Phaser.Geom.Rectangle(player.x, player.y, 64, 64);
-    const monsterRect = new Phaser.Geom.Rectangle(this.x, this.y, 64, 64);
+    if (this.monsterAttacking) return;
+    this.monsterAttacking = true;
+    // const playerRect = new Phaser.Geom.Rectangle(player.x, player.y, 64, 64);
+    // const monsterRect = new Phaser.Geom.Rectangle(this.x, this.y, 64, 64);
+    const monsterRect = monster.getBounds();
+    const playerRect = player.getBounds();
+    if (Phaser.Geom.Intersects.RectangleToRectangle(playerRect, monsterRect)) {
+      console.log('a');
+      this.setVelocity(0);
+      this.attacking = {
+        on: true,
+        x: this.x,
+        y: this.y
+      };
 
-    // if (Phaser.Geom.Intersects.RectangleToRectangle(playerRect, monsterRect)) {
-    //   console.log('a');
-    //   this.setVelocity(0);
-    //   this.attacking = {
-    //     on: true,
-    //     x: this.x,
-    //     y: this.y
-    //   };
+      console.log(this.lastAnimation);
+      switch (this.lastAnimation) {
+        case 'up':
+          this.anims.play('rat_attack_up', true);
+          break;
+        case 'down':
+          this.anims.play('rat_attack_down', true);
+          break;
+        case 'side':
+          this.anims.play('rat_attack_side', true);
+          break;
+      }
 
-    //   this.anims.stop();
-    //   this.anims.play('rat_attack_down', true);
-    //   const payload = { player, monster };
-    //   this.scene.events.emit('playerAttacked', payload);
+      const payload = { player, monster };
+      this.scene.events.emit('playerAttacked', payload);
 
-    //   this.scene.time.delayedCall(500, () => {
-    //     this.attacking.on = false;
+      this.scene.time.delayedCall(1000, () => {
+        this.attacking.on = false;
+        this.monsterAttacking = false;
 
-    //     // this.startMovement(player, monster);
-    //   });
-    // }
-    this.attacking = {
-      on: true,
-      x: this.x,
-      y: this.y
-    };
+        // this.startMovement(player, monster);
+      });
+    }
 
-    this.anims.stop();
-    this.anims.play('rat_attack_down', true);
-    const payload = { player, monster };
-    this.scene.events.emit('playerAttacked', payload);
+    // this.attacking = {
+    //   on: true,
+    //   x: this.x,
+    //   y: this.y
+    // };
+    // this.anims.stop();
+    // this.anims.play('rat_attack_down', true);
+    // player.handleDamage(player, monster);
 
-    this.scene.time.delayedCall(500, () => {
-      this.attacking.on = false;
-
-      // this.startMovement(player, monster);
-    });
+    // this.scene.time.delayedCall(1000, () => {
+    //   this.attacking.on = false;
+    //   this.monsterAttacking = false;
+    //   // this.startMovement(player, monster);
+    // });
   }
 
   createHealthBar() {

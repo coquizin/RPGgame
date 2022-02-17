@@ -20,7 +20,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.selectedBag = '';
 
     this.loaded = false;
-
     this.interval = undefined;
 
     this.anims.play(`mage_spawn`).anims.chain({ key: `idle_down`, repeat: -1 });
@@ -115,6 +114,27 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   setMagics(magics) {
     this.magics = magics;
+  }
+
+  handleDamage(player, monster) {
+    // this.setVelocity(dir.x, dir.y);
+    this.anims.stop();
+    switch (this.lastAnimation) {
+      case 'idle_up':
+        console.log('up');
+        this.anims.play('takeHit_up', true);
+        break;
+      case 'idle_down':
+        this.anims.play('takeHit_down', true);
+        console.log('down');
+        break;
+      case 'idle_side':
+        this.anims.play('takeHit_side', true);
+        console.log('side');
+        break;
+    }
+    const payload = { player, monster };
+    this.scene.events.emit('playerAttacked', payload);
   }
 
   throwMagic(name) {

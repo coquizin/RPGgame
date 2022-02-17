@@ -15,6 +15,10 @@ export default class PlayerModel {
     this.health -= damage;
   }
 
+  increaseHealth(hp) {
+    this.health += hp;
+  }
+
   respawn() {
     this.health = this.maxHealth;
     this.mana = this.maxMana;
