@@ -24,18 +24,12 @@ export default class GameScene extends Phaser.Scene {
   update() {
     if (this.player) {
       this.player.update(this.cursors);
-      this.playerRect = new Phaser.Geom.Rectangle(this.player.x, this.player.y, 100, 100);
     }
 
     if (this.monsters) {
       for (const monster of this.monsters.getChildren()) {
         monster.update(this.cursors, this.player, monster, this.monsters);
-        this.monsterRect = new Phaser.Geom.Rectangle(monster.x, monster.y, 100, 100);
       }
-    }
-
-    if (Phaser.Geom.Intersects.RectangleToRectangle(this.playerRect, this.monsterRect)) {
-      console.log('eu te amo tiao');
     }
     // console.log(this.playerRect);
   }
@@ -79,7 +73,8 @@ export default class GameScene extends Phaser.Scene {
       'rat',
       monsterObject.id,
       monsterObject.health,
-      monsterObject.maxHealth
+      monsterObject.maxHealth,
+      monsterObject.attack
     );
     monster.setCollideWorldBounds(true);
     monster.setImmovable(false);
@@ -114,8 +109,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   playerEnemyOverlap(player, monster) {
-    const payload = { player, monster };
-    this.events.emit('playerAttacked', payload);
+    monster.monsterAttack(player, monster);
   }
 
   magicEnemyOverlap(magic, monster) {

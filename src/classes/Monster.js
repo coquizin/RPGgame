@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 export default class Monster extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, key, id, health, maxHealth) {
+  constructor(scene, x, y, key, id, health, maxHealth, attack) {
     super(scene, x, y, key);
     this.scene = scene;
     this.id = id;
@@ -10,9 +10,15 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     this.y = y;
     this.health = health;
     this.maxHealth = maxHealth;
-    this.damage = 10;
     this.range = 250;
     this.speed = 50;
+    this.attack = attack;
+
+    this.attacking = {
+      on: false,
+      x: 0,
+      y: 0
+    };
 
     this.lastDirection = `None`;
     this.lastTilePosition = { x: -1, y: -1 };
@@ -34,7 +40,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
     this.createHealthBar();
 
-    this.setOrigin(0);
+    this.setOrigin(0.5, 0.5);
     this.setBodySize(30, 30);
   }
 
@@ -48,10 +54,9 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(cursors, player, monster, monsters) {
-    this.x = monster.x;
-    this.y = monster.y;
+    // console.log(monster.x, monster.y);
     this.updateHealthBar();
-    this.startMovement(cursors, player, monsters);
+    this.startMovement(player, monster);
   }
 
   handleBody() {
@@ -73,70 +78,14 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  startMovement(cursors, player, monsters) {
-    // const x = this.x
-    // const y = this.y
+  startMovement(player, monster) {
+    if (this.attacking.on) {
+      this.setPosition(this.attacking.x, this.attacking.y);
+      return;
+    }
 
-    // if (!Phaser.Geom.Rectangle.Contains(this.scene.physics.world.bounds, x, y))
-    // {
-    //   // don't switch direction when outside of world; being wrapped
-    //   return
-    // }
-
-    // const gx = (Math.floor(x / 16) * 16)
-    // const gy = (Math.floor(y / 16) * 16)
-
-    // if (this.lastTilePosition.x === gx && this.lastTilePosition.y === gy)
-    // {
-    //   // skip if we just handled this position
-    //   return
-    // }
-
-    // // if (Math.abs(x - gx) > 4 || Math.abs(y - gy) > 4)
-    // // {
-    // // 	return
-    // // }
-
-    // this.x = gx
-    // this.y = gy
-
-    // this.lastTilePosition.x = gx
-    // this.lastTilePosition.y = gy
-
-    // this.aiBehavior = new ChasePlayerAI(player, monster, board)
-
-    // const speed = this.aiBehavior.speed()
-    // const {closestDirection, closestDistance} = this.aiBehavior.pickDirection()
-
-    // console.log(closestDirection, closestDistance)
-
-    // // const tPos = this.aiBehavior.targetPosition()
-    // // this.targetIndicator.setPosition(tPos.x, tPos.y)
-
-    // switch (closestDirection)
-    // {
-    //   case `Left`:
-    //     // this.look(Direction.Left)
-    //     this.setVelocity(-speed, 0)
-    //     break
-
-    //   case `Right`:
-    //     // this.look(Direction.Right)
-    //     this.setVelocity(speed, 0)
-    //     break
-
-    //   case `Up`:
-    //     // this.look(Direction.Up)
-    //     this.setVelocity(0, -speed)
-    //     break
-
-    //   case `Down`:
-    //     // this.look(Direction.Down)
-    //     this.setVelocity(0, speed)
-    //     break
-    // }
-
-    // this.lastDirection = closestDirection
+    this.x = monster.x;
+    this.y = monster.y;
 
     const distanceX = player.x - this.x;
     const distanceY = player.y - this.y;
@@ -149,44 +98,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     // }
 
     const rotation = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
-    // console.log(rotation)
-    // console.log(this.body.angle)
-
-    // const canEnter = board.map(item => console.log(item))
-
-    // if (board.getTileAtWorldXY(this.x, this.y))
-    // {
-    //   // cannot move into walls
-    //   return
-    // }
-
-    // const targetDegrees = Phaser.Math.RadToDeg(rotation);
-
-    // console.log(targetDegrees)
-
-    // let canEnter = true;
-    // monsters.getChildren().forEach((monster) => {
-    //   if (this.id !== monster.id) {
-    //     const actualMonsterX = this.x
-    //     const actualMonsterY = this.y
-    //     const targetMonsterY = monster.y
-    //     const targetMonsterX = monster.y
-
-    //     const distanceBetweenX = (actualMonsterX - targetMonsterX ) + 32
-    //     const distanceBetweenY = (actualMonsterY - targetMonsterY ) + 32
-    //     const calculateDistance = Math.abs((actualMonsterX - targetMonsterX))
-
-    //     if (actualMonsterX >= targetMonsterX - 48 || actualMonsterY >= targetMonsterY - 48) {
-    //       console.log(`perto`)
-    //     }
-    //     // if (actualMonsterX > (targetMonsterX))
-    //     // if (distanceBetweenX+32 )
-    //     console.log(monster.id, actualMonsterX, actualMonsterY, targetMonsterX, targetMonsterY)
-    //     // if ()
-    //   }
-    // })
-
     if (Math.abs(distanceX) < this.range || Math.abs(distanceY) < this.range) {
+      // this.monsterAttack(player, monster);
       this.handleBody();
       if ((rotation >= 2.4 && rotation <= 4) || (rotation <= -2.4 && rotation >= -4)) {
         //"Left";
@@ -211,6 +124,48 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
       this.setVelocity(0);
       this.anims.play({ key: `${this.key}_idle_down`, repeat: -1 }, true);
     }
+  }
+
+  monsterAttack(player, monster) {
+    const playerRect = new Phaser.Geom.Rectangle(player.x, player.y, 64, 64);
+    const monsterRect = new Phaser.Geom.Rectangle(this.x, this.y, 64, 64);
+
+    // if (Phaser.Geom.Intersects.RectangleToRectangle(playerRect, monsterRect)) {
+    //   console.log('a');
+    //   this.setVelocity(0);
+    //   this.attacking = {
+    //     on: true,
+    //     x: this.x,
+    //     y: this.y
+    //   };
+
+    //   this.anims.stop();
+    //   this.anims.play('rat_attack_down', true);
+    //   const payload = { player, monster };
+    //   this.scene.events.emit('playerAttacked', payload);
+
+    //   this.scene.time.delayedCall(500, () => {
+    //     this.attacking.on = false;
+
+    //     // this.startMovement(player, monster);
+    //   });
+    // }
+    this.attacking = {
+      on: true,
+      x: this.x,
+      y: this.y
+    };
+
+    this.anims.stop();
+    this.anims.play('rat_attack_down', true);
+    const payload = { player, monster };
+    this.scene.events.emit('playerAttacked', payload);
+
+    this.scene.time.delayedCall(500, () => {
+      this.attacking.on = false;
+
+      // this.startMovement(player, monster);
+    });
   }
 
   createHealthBar() {

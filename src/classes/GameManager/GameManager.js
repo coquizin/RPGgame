@@ -61,7 +61,7 @@ export default class GameManager {
     this.scene.events.on('playerAttacked', ({ player, monster }) => {
       if (this.player) {
         // player lose Health
-        this.player.loseHealth(monster.damage);
+        this.player.loseHealth(monster.attack);
         player.updateHealth(this.player.health);
 
         // player dies
@@ -113,28 +113,28 @@ export default class GameManager {
     //   10
     // );
     // this.addMonster(monster);
-    // for (const key of Object.keys(this.monsterLocation)) {
-    //   let monsterDead = true;
+    //   for (const key of Object.keys(this.monsterLocation)) {
+    //     let monsterDead = true;
 
-    //   for (const monster of Object.keys(this.monsters)) {
-    //     if (this.monsters[monster].id === `monster-${key}`) {
-    //       monsterDead = false;
+    //     for (const monster of Object.keys(this.monsters)) {
+    //       if (this.monsters[monster].id === `monster-${key}`) {
+    //         monsterDead = false;
+    //       }
+    //     }
+
+    //     if (monsterDead) {
+    //       let monster = new MonsterModel(
+    //         this.monsterLocation[key].x,
+    //         this.monsterLocation[key].y,
+    //         10,
+    //         `monster-${key}`,
+    //         100,
+    //         10
+    //       );
+
+    //       this.addMonster(monster);
     //     }
     //   }
-
-    //   if (monsterDead) {
-    //     let monster = new MonsterModel(
-    //       this.monsterLocation[key].x,
-    //       this.monsterLocation[key].y,
-    //       10,
-    //       `monster-${key}`,
-    //       100,
-    //       10
-    //     );
-
-    //     this.addMonster(monster);
-    //   }
-    // }
   }
 
   spawnPlayer() {

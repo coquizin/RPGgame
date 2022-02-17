@@ -100,7 +100,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setScale(2);
     this.setBodySize(36, 36);
     this.setOffset(6, 9);
-
+    // this.setOrigin(0);
     // colide with world bounds
     this.body.setCollideWorldBounds(true);
 
@@ -109,6 +109,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     // have the caramera following the player
     this.scene.cameras.main.startFollow(this);
+
+    this.setMaxVelocity(950, 950);
   }
 
   setMagics(magics) {
@@ -116,7 +118,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   throwMagic(name) {
-    console.log(this.mana);
     if (!this.magics) return;
     if (this.magicRunning) return;
 
