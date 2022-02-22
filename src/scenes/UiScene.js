@@ -38,13 +38,12 @@ export default class UiScene extends Phaser.Scene {
     const selectUI = this.add.image(262, 782, 'select_ui').setScale(2);
     const manaPotionButton = this.add.image(657, 783, 'mana_potion').setScale(2).setInteractive();
     const speedPotionButton = this.add.image(592, 783, 'speed_potion').setScale(2).setInteractive();
-    const inventorybtn = this.add.sprite(512, 420, 'inventory').setScale(2).setInteractive();
+    // const inventorybtn = this.add.image(512, 420, 'inventory').setScale(2).setInteractive();
 
     // const selectUI2 = this.add.image(326 , 782, 'select_ui').setScale(2)
     // const selectUI3 = this.add.image(392 , 782, 'select_ui').setScale(2)
 
     darkButton.anims.play({ key: 'darkMagic_down', repeat: -1 }, true);
-    inventorybtn.anims.play({ key: 'inventory_animation', repeat: -1 }, true);
 
     waterButton.anims.play({ key: 'waterMagic_down', repeat: -1 }, true);
     fireButton.anims.play({ key: 'fireMagic_down', repeat: -1 }, true);
