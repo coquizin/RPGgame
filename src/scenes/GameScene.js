@@ -34,9 +34,7 @@ export default class GameScene extends Phaser.Scene {
     // console.log(this.playerRect);
   }
 
-  createAudio() {
-    this.goldPickupAudio = this.sound.add('goldSound', { loop: false, volume: 0.2 });
-  }
+  createAudio() {}
 
   createGroups() {
     // create magic group

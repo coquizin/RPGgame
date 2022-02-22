@@ -126,6 +126,7 @@ export default class UiScene extends Phaser.Scene {
   createToll() {
     const tollIcon = this.add.sprite(550, 780, 'quick_bar').setScale(2);
     tollIcon.anims.play({ key: 'quickBar', repeat: -1 }, true);
+    this.add.image(300, 300, 'rings', 3).setScale(3);
   }
   // setupUiElements() {
   //   // create the score text game object

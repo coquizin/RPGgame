@@ -15,7 +15,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.magicRunning = false;
     this.stopMoving = false;
     this.playerObject = undefined;
-
+    this.tileSize = 36;
     this.selectedMagic = 'water';
     this.selectedBag = '';
 
@@ -97,9 +97,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     // scale our player
     this.setScale(2);
-    this.setBodySize(36, 36);
+    this.setBodySize(this.tileSize, this.tileSize);
     this.setOffset(6, 9);
-    // this.setOrigin(0);
+    // this.setOrigin(0.5, 1);
     // colide with world bounds
     this.body.setCollideWorldBounds(true);
 
@@ -110,6 +110,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.cameras.main.startFollow(this);
 
     this.setMaxVelocity(950, 950);
+
+    const offsetX = this.tileSize / 2;
+    const offsetY = this.tileSize;
+  }
+
+  getPosition() {
+    return this.sprite.getBottomCenter();
   }
 
   setMagics(magics) {
@@ -119,6 +126,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   handleDamage(player, monster) {
     // this.setVelocity(dir.x, dir.y);
     this.anims.stop();
+    this.loaded = false;
+    this.stopMoving = true;
     switch (this.lastAnimation) {
       case 'idle_up':
         console.log('up');
@@ -133,6 +142,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         console.log('side');
         break;
     }
+    // this.loaded = true;
     const payload = { player, monster };
     this.scene.events.emit('playerAttacked', payload);
   }

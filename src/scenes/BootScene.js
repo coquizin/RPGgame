@@ -14,6 +14,11 @@ export default class BootScene extends Phaser.Scene {
     this.loadAudio();
     // load tile map
     this.loadTileMap();
+    // load aseprite
+    this.loadAseprite();
+  }
+
+  loadAseprite() {
     // load animation mage
     this.load.aseprite(
       'mage',
@@ -82,15 +87,14 @@ export default class BootScene extends Phaser.Scene {
 
   loadSpriteSheets() {
     // load spritesheets
-    this.load.spritesheet('items', 'assets/images/tilesets/items.png', {
-      frameWidth: 32,
-      frameHeight: 32
+    this.load.spritesheet('rings', 'assets/images/ui/rings.png', {
+      frameWidth: 16,
+      frameHeight: 16
     });
   }
 
   loadAudio() {
     //load autio
-    this.load.audio('goldSound', ['assets/audio/Pickup.wav']);
   }
 
   loadTileMap() {

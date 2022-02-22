@@ -41,9 +41,20 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
     this.createHealthBar();
 
-    this.setOrigin(0.5, 0.5);
+    this.setOrigin(0.5, 1);
     this.setBodySize(30, 30);
+    this.offSetX = 30 / 2;
+    this.offSetY = 30;
+    this.getPosition();
   }
+
+  getPosition() {
+    return this.getBottomCenter();
+  }
+
+  // setPosition(position) {
+  //   this.setPosition(position.x, position.y);
+  // }
 
   setNormalHit() {
     this.setBodySize(30, 30);
@@ -110,24 +121,29 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
       this.handleBody();
       if ((rotation >= 2.4 && rotation <= 4) || (rotation <= -2.4 && rotation >= -4)) {
         //"Left";
+        this.direction = 'left';
         this.setFlipX(true);
         // this.setVelocityY(0);
         this.setVelocityX(Math.sign(distanceX) * this.speed);
       } else if ((rotation >= 0 && rotation <= 0.8) || (rotation <= 0 && rotation >= -0.8)) {
         //"Right";
+        this.direction = 'ritgh';
         this.setFlipX(false);
         // this.setVelocityY(0);
         this.setVelocityX(Math.sign(distanceX) * this.speed);
       } else if (rotation < -0.8 && rotation > -2.4) {
         // up
+        this.direction = 'up';
         // this.setVelocityX(0)
         this.setVelocityY(Math.sign(distanceY) * this.speed);
       } else if (rotation > 0.8 && rotation < 2.4) {
         //"Down";
+        this.direction = 'down';
         // this.setVelocityX(0)
         this.setVelocityY(Math.sign(distanceY) * this.speed);
       }
     } else {
+      this.direction = 'none';
       this.setVelocity(0);
       this.anims.play({ key: `${this.key}_idle_down`, repeat: -1 }, true);
     }
@@ -139,6 +155,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     // const playerRect = new Phaser.Geom.Rectangle(player.x, player.y, 64, 64);
     // const monsterRect = new Phaser.Geom.Rectangle(this.x, this.y, 64, 64);
     const monsterRect = monster.getBounds();
+    console.log({ monsterRect });
     const playerRect = player.getBounds();
     if (Phaser.Geom.Intersects.RectangleToRectangle(playerRect, monsterRect)) {
       console.log('a');
