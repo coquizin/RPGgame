@@ -47,6 +47,7 @@ export default class BootScene extends Phaser.Scene {
       'assets/images/enemies/carrot_char.png',
       'assets/images/enemies/carrot_char.json'
     );
+
     // load enemy rat
     this.load.aseprite('rat', 'assets/images/enemies/rat.png', 'assets/images/enemies/rat.json');
     // load quick bar
@@ -62,7 +63,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('button1', 'assets/images/ui/blue_button01.png');
     this.load.image('button2', 'assets/images/ui/blue_button02.png');
 
-    this.load.image('iventory', 'assets/images/ui/inventory.png');
+    // this.load.image('iventory', 'assets/images/ui/inventory.png');
     // this.load.image('Quick_tool', 'assets/images/ui/Quick_tool.png');
     this.load.image('moldura', 'assets/images/ui/moldura.png');
 
@@ -77,6 +78,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('mana_potion', 'assets/images/ui/mana_potion.png');
 
     this.load.image('bag', 'assets/images/ui/Bagpack.png');
+    this.load.image('inventory', 'assets/images/ui/iventory/inventory.png');
 
     this.load.image('select_ui', 'assets/images/ui/select_ui.png');
     this.load.image('water_magic_button', 'assets/images/ui/water_magic_button.png');
